@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EE178C8D1E5AA074001A433A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178C8C1E5AA074001A433A /* AppDelegate.swift */; };
-		EE178C8F1E5AA074001A433A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178C8E1E5AA074001A433A /* ViewController.swift */; };
+		EE178C8F1E5AA074001A433A /* TravelLocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178C8E1E5AA074001A433A /* TravelLocationsMapViewController.swift */; };
 		EE178C921E5AA074001A433A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE178C901E5AA074001A433A /* Main.storyboard */; };
 		EE178C941E5AA074001A433A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE178C931E5AA074001A433A /* Assets.xcassets */; };
 		EE178C971E5AA074001A433A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE178C951E5AA074001A433A /* LaunchScreen.storyboard */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		EE178C891E5AA074001A433A /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE178C8C1E5AA074001A433A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EE178C8E1E5AA074001A433A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE178C8E1E5AA074001A433A /* TravelLocationsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationsMapViewController.swift; sourceTree = "<group>"; };
 		EE178C911E5AA074001A433A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE178C931E5AA074001A433A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE178C961E5AA074001A433A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,6 +74,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE0BDB6C1E5AF1D600EAD974 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EE178C801E5AA074001A433A = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +88,7 @@
 				EE178CA01E5AA074001A433A /* VirtualTouristTests */,
 				EE178CAB1E5AA075001A433A /* VirtualTouristUITests */,
 				EE178C8A1E5AA074001A433A /* Products */,
+				EE0BDB6C1E5AF1D600EAD974 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				EE178C8C1E5AA074001A433A /* AppDelegate.swift */,
-				EE178C8E1E5AA074001A433A /* ViewController.swift */,
+				EE178C8E1E5AA074001A433A /* TravelLocationsMapViewController.swift */,
 				EE178C901E5AA074001A433A /* Main.storyboard */,
 				EE178C931E5AA074001A433A /* Assets.xcassets */,
 				EE178C951E5AA074001A433A /* LaunchScreen.storyboard */,
@@ -262,7 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE178C8F1E5AA074001A433A /* ViewController.swift in Sources */,
+				EE178C8F1E5AA074001A433A /* TravelLocationsMapViewController.swift in Sources */,
 				EE178C8D1E5AA074001A433A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,6 +522,7 @@
 				EE178CB31E5AA075001A433A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EE178CB41E5AA075001A433A /* Build configuration list for PBXNativeTarget "VirtualTouristTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +531,7 @@
 				EE178CB61E5AA075001A433A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EE178CB71E5AA075001A433A /* Build configuration list for PBXNativeTarget "VirtualTouristUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +540,7 @@
 				EE178CB91E5AA075001A433A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
