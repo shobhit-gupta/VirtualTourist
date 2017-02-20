@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
-class ViewController: UIViewController {
+class TravelLocationsMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
