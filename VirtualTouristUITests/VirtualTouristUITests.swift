@@ -28,9 +28,36 @@ class VirtualTouristUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func checkIfMapFullSize(in app: XCUIApplication) {
+        let map = app.maps.element
+        // Unlike MapView, App frame size doesn't change with change in orientation, hence just compare the area.
+        XCTAssertEqual(map.frame.height * map.frame.width, app.frame.height * app.frame.width)
+    }
+    
+    
+    func checkIfMapFullSize(in app: XCUIApplication, forOrientations orientations: [UIDeviceOrientation]) {
+        for orientation in orientations {
+            XCUIDevice.shared().orientation = orientation
+            sleep(1)    // MapView needs some time to rotate.
+            checkIfMapFullSize(in: app)
+        }
+    }
+    
+    
+    func testMap() {
+        
+        let app = XCUIApplication()
+        let orientations: [UIDeviceOrientation]
+        
+        if UI_USER_INTERFACE_IDIOM() == .pad {
+            orientations = [.portrait, .landscapeLeft, .landscapeRight, .portraitUpsideDown]
+        } else {
+            // Expected Phone orientations.
+            orientations = [.portrait, .landscapeLeft, .landscapeRight]
+        }
+        checkIfMapFullSize(in: app, forOrientations: orientations)
+        
     }
     
 }
