@@ -14,8 +14,18 @@
 		EE178C971E5AA074001A433A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE178C951E5AA074001A433A /* LaunchScreen.storyboard */; };
 		EE178CA21E5AA074001A433A /* VirtualTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178CA11E5AA074001A433A /* VirtualTouristTests.swift */; };
 		EE178CAD1E5AA075001A433A /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178CAC1E5AA075001A433A /* VirtualTouristUITests.swift */; };
+		EE3F72F91EF688BB00AD3969 /* Error_+Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F72F81EF688BB00AD3969 /* Error_+Flickr.swift */; };
+		EE3F730B1EF6AC0200AD3969 /* Dictionary+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F72FF1EF6AC0200AD3969 /* Dictionary+Ease.swift */; };
+		EE3F731F1EF75DF600AD3969 /* Basic+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F73151EF75DF500AD3969 /* Basic+Random.swift */; };
+		EE3F73221EF75DF600AD3969 /* Default+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F73191EF75DF500AD3969 /* Default+Random.swift */; };
+		EE3F73231EF75DF600AD3969 /* Error_+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F731A1EF75DF600AD3969 /* Error_+Random.swift */; };
 		EE79C4D51EEABA120016E915 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE79C4D31EEABA120016E915 /* Alamofire.framework */; };
 		EE79C4D61EEABA120016E915 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE79C4D41EEABA120016E915 /* SwiftyJSON.framework */; };
+		EE79C4E51EEBB2A00016E915 /* Default+Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E01EEBB2A00016E915 /* Default+Flickr.swift */; };
+		EE79C4E61EEBB2A00016E915 /* SimpleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E11EEBB2A00016E915 /* SimpleAPI.swift */; };
+		EE79C4E71EEBB2A00016E915 /* Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E31EEBB2A00016E915 /* Default.swift */; };
+		EE79C4E81EEBB2A00016E915 /* Error_.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E41EEBB2A00016E915 /* Error_.swift */; };
+		EE79C4EA1EEBB4890016E915 /* Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E91EEBB4890016E915 /* Flickr.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +59,18 @@
 		EE178CA81E5AA075001A433A /* VirtualTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE178CAC1E5AA075001A433A /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
 		EE178CAE1E5AA075001A433A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE3F72F81EF688BB00AD3969 /* Error_+Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error_+Flickr.swift"; sourceTree = "<group>"; };
+		EE3F72FF1EF6AC0200AD3969 /* Dictionary+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ease.swift"; sourceTree = "<group>"; };
+		EE3F73151EF75DF500AD3969 /* Basic+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Basic+Random.swift"; sourceTree = "<group>"; };
+		EE3F73191EF75DF500AD3969 /* Default+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+Random.swift"; sourceTree = "<group>"; };
+		EE3F731A1EF75DF600AD3969 /* Error_+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error_+Random.swift"; sourceTree = "<group>"; };
 		EE79C4D31EEABA120016E915 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		EE79C4D41EEABA120016E915 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		EE79C4E01EEBB2A00016E915 /* Default+Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+Flickr.swift"; sourceTree = "<group>"; };
+		EE79C4E11EEBB2A00016E915 /* SimpleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleAPI.swift; sourceTree = "<group>"; };
+		EE79C4E31EEBB2A00016E915 /* Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Default.swift; sourceTree = "<group>"; };
+		EE79C4E41EEBB2A00016E915 /* Error_.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error_.swift; sourceTree = "<group>"; };
+		EE79C4E91EEBB4890016E915 /* Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickr.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +162,32 @@
 			path = VirtualTouristUITests;
 			sourceTree = "<group>";
 		};
+		EE3F72FA1EF6AC0200AD3969 /* EaseExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				EE3F72FF1EF6AC0200AD3969 /* Dictionary+Ease.swift */,
+			);
+			path = EaseExtensions;
+			sourceTree = "<group>";
+		};
+		EE3F73131EF75DF500AD3969 /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				EE3F73181EF75DF500AD3969 /* MustImport */,
+				EE3F73151EF75DF500AD3969 /* Basic+Random.swift */,
+			);
+			path = Random;
+			sourceTree = "<group>";
+		};
+		EE3F73181EF75DF500AD3969 /* MustImport */ = {
+			isa = PBXGroup;
+			children = (
+				EE3F73191EF75DF500AD3969 /* Default+Random.swift */,
+				EE3F731A1EF75DF600AD3969 /* Error_+Random.swift */,
+			);
+			path = MustImport;
+			sourceTree = "<group>";
+		};
 		EE79C4D81EEBAF3D0016E915 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +221,10 @@
 		EE79C4DC1EEBAFEC0016E915 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				EE79C4E21EEBB2A00016E915 /* MustImport */,
+				EE79C4DE1EEBB2A00016E915 /* API */,
+				EE3F72FA1EF6AC0200AD3969 /* EaseExtensions */,
+				EE3F73131EF75DF500AD3969 /* Random */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -187,6 +237,34 @@
 				EE178C951E5AA074001A433A /* LaunchScreen.storyboard */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		EE79C4DE1EEBB2A00016E915 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				EE79C4E11EEBB2A00016E915 /* SimpleAPI.swift */,
+				EE79C4DF1EEBB2A00016E915 /* Flickr */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		EE79C4DF1EEBB2A00016E915 /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+				EE79C4E01EEBB2A00016E915 /* Default+Flickr.swift */,
+				EE3F72F81EF688BB00AD3969 /* Error_+Flickr.swift */,
+				EE79C4E91EEBB4890016E915 /* Flickr.swift */,
+			);
+			path = Flickr;
+			sourceTree = "<group>";
+		};
+		EE79C4E21EEBB2A00016E915 /* MustImport */ = {
+			isa = PBXGroup;
+			children = (
+				EE79C4E31EEBB2A00016E915 /* Default.swift */,
+				EE79C4E41EEBB2A00016E915 /* Error_.swift */,
+			);
+			path = MustImport;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +423,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE79C4E71EEBB2A00016E915 /* Default.swift in Sources */,
+				EE3F73231EF75DF600AD3969 /* Error_+Random.swift in Sources */,
+				EE79C4E81EEBB2A00016E915 /* Error_.swift in Sources */,
+				EE3F73221EF75DF600AD3969 /* Default+Random.swift in Sources */,
+				EE79C4E51EEBB2A00016E915 /* Default+Flickr.swift in Sources */,
+				EE3F72F91EF688BB00AD3969 /* Error_+Flickr.swift in Sources */,
+				EE3F731F1EF75DF600AD3969 /* Basic+Random.swift in Sources */,
+				EE79C4E61EEBB2A00016E915 /* SimpleAPI.swift in Sources */,
+				EE3F730B1EF6AC0200AD3969 /* Dictionary+Ease.swift in Sources */,
+				EE79C4EA1EEBB4890016E915 /* Flickr.swift in Sources */,
 				EE178C8F1E5AA074001A433A /* TravelLocationsMapViewController.swift in Sources */,
 				EE178C8D1E5AA074001A433A /* AppDelegate.swift in Sources */,
 			);
