@@ -19,6 +19,7 @@
 		EE3F731F1EF75DF600AD3969 /* Basic+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F73151EF75DF500AD3969 /* Basic+Random.swift */; };
 		EE3F73221EF75DF600AD3969 /* Default+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F73191EF75DF500AD3969 /* Default+Random.swift */; };
 		EE3F73231EF75DF600AD3969 /* Error_+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F731A1EF75DF600AD3969 /* Error_+Random.swift */; };
+		EE3F732A1EF7AC0700AD3969 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE3F73271EF7A94000AD3969 /* Model.xcdatamodeld */; };
 		EE79C4D51EEABA120016E915 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE79C4D31EEABA120016E915 /* Alamofire.framework */; };
 		EE79C4D61EEABA120016E915 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE79C4D41EEABA120016E915 /* SwiftyJSON.framework */; };
 		EE79C4E51EEBB2A00016E915 /* Default+Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E01EEBB2A00016E915 /* Default+Flickr.swift */; };
@@ -64,6 +65,7 @@
 		EE3F73151EF75DF500AD3969 /* Basic+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Basic+Random.swift"; sourceTree = "<group>"; };
 		EE3F73191EF75DF500AD3969 /* Default+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+Random.swift"; sourceTree = "<group>"; };
 		EE3F731A1EF75DF600AD3969 /* Error_+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error_+Random.swift"; sourceTree = "<group>"; };
+		EE3F73281EF7A94000AD3969 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		EE79C4D31EEABA120016E915 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		EE79C4D41EEABA120016E915 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		EE79C4E01EEBB2A00016E915 /* Default+Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+Flickr.swift"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		EE79C4D81EEBAF3D0016E915 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EE3F73271EF7A94000AD3969 /* Model.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				EE3F730B1EF6AC0200AD3969 /* Dictionary+Ease.swift in Sources */,
 				EE79C4EA1EEBB4890016E915 /* Flickr.swift in Sources */,
 				EE178C8F1E5AA074001A433A /* TravelLocationsMapViewController.swift in Sources */,
+				EE3F732A1EF7AC0700AD3969 /* Model.xcdatamodeld in Sources */,
 				EE178C8D1E5AA074001A433A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -714,6 +718,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EE3F73271EF7A94000AD3969 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EE3F73281EF7A94000AD3969 /* Model.xcdatamodel */,
+			);
+			currentVersion = EE3F73281EF7A94000AD3969 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = EE178C811E5AA074001A433A /* Project object */;
 }
