@@ -13,9 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let coreDataManager = CoreDataManager(modelName: Default.DataModelName, ofType: .withPrivatePersistentQueue)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        print(coreDataManager.mainManagedObjectContext)
         return true
     }
 

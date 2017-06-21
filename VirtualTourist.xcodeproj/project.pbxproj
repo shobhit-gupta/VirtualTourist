@@ -20,6 +20,7 @@
 		EE3F73221EF75DF600AD3969 /* Default+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F73191EF75DF500AD3969 /* Default+Random.swift */; };
 		EE3F73231EF75DF600AD3969 /* Error_+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F731A1EF75DF600AD3969 /* Error_+Random.swift */; };
 		EE3F732A1EF7AC0700AD3969 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE3F73271EF7A94000AD3969 /* Model.xcdatamodeld */; };
+		EE3F732E1EF82A0E00AD3969 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F732D1EF82A0E00AD3969 /* CoreDataManager.swift */; };
 		EE79C4D51EEABA120016E915 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE79C4D31EEABA120016E915 /* Alamofire.framework */; };
 		EE79C4D61EEABA120016E915 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE79C4D41EEABA120016E915 /* SwiftyJSON.framework */; };
 		EE79C4E51EEBB2A00016E915 /* Default+Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E01EEBB2A00016E915 /* Default+Flickr.swift */; };
@@ -27,6 +28,9 @@
 		EE79C4E71EEBB2A00016E915 /* Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E31EEBB2A00016E915 /* Default.swift */; };
 		EE79C4E81EEBB2A00016E915 /* Error_.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E41EEBB2A00016E915 /* Error_.swift */; };
 		EE79C4EA1EEBB4890016E915 /* Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E91EEBB4890016E915 /* Flickr.swift */; };
+		EEBB6F341EF90BA200561363 /* FileManager+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F331EF90BA200561363 /* FileManager+Ease.swift */; };
+		EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F351EF92DBA00561363 /* Default+App.swift */; };
+		EEBB6F381EFA1EA700561363 /* NSManagedContext+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +70,7 @@
 		EE3F73191EF75DF500AD3969 /* Default+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+Random.swift"; sourceTree = "<group>"; };
 		EE3F731A1EF75DF600AD3969 /* Error_+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error_+Random.swift"; sourceTree = "<group>"; };
 		EE3F73281EF7A94000AD3969 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		EE3F732D1EF82A0E00AD3969 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		EE79C4D31EEABA120016E915 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		EE79C4D41EEABA120016E915 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		EE79C4E01EEBB2A00016E915 /* Default+Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+Flickr.swift"; sourceTree = "<group>"; };
@@ -73,6 +78,9 @@
 		EE79C4E31EEBB2A00016E915 /* Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Default.swift; sourceTree = "<group>"; };
 		EE79C4E41EEBB2A00016E915 /* Error_.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error_.swift; sourceTree = "<group>"; };
 		EE79C4E91EEBB4890016E915 /* Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickr.swift; sourceTree = "<group>"; };
+		EEBB6F331EF90BA200561363 /* FileManager+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Ease.swift"; sourceTree = "<group>"; };
+		EEBB6F351EF92DBA00561363 /* Default+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+App.swift"; sourceTree = "<group>"; };
+		EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedContext+Ease.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +144,7 @@
 		EE178C8B1E5AA074001A433A /* VirtualTourist */ = {
 			isa = PBXGroup;
 			children = (
+				EEBB6F351EF92DBA00561363 /* Default+App.swift */,
 				EE79C4D81EEBAF3D0016E915 /* Model */,
 				EE79C4D91EEBAF6E0016E915 /* View */,
 				EE79C4DA1EEBAF730016E915 /* Controller */,
@@ -168,6 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				EE3F72FF1EF6AC0200AD3969 /* Dictionary+Ease.swift */,
+				EEBB6F331EF90BA200561363 /* FileManager+Ease.swift */,
+				EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */,
 			);
 			path = EaseExtensions;
 			sourceTree = "<group>";
@@ -188,6 +199,22 @@
 				EE3F731A1EF75DF600AD3969 /* Error_+Random.swift */,
 			);
 			path = MustImport;
+			sourceTree = "<group>";
+		};
+		EE3F732B1EF7ACD400AD3969 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				EE3F732C1EF7ACE500AD3969 /* Stack */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		EE3F732C1EF7ACE500AD3969 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				EE3F732D1EF82A0E00AD3969 /* CoreDataManager.swift */,
+			);
+			path = Stack;
 			sourceTree = "<group>";
 		};
 		EE79C4D81EEBAF3D0016E915 /* Model */ = {
@@ -226,6 +253,7 @@
 			children = (
 				EE79C4E21EEBB2A00016E915 /* MustImport */,
 				EE79C4DE1EEBB2A00016E915 /* API */,
+				EE3F732B1EF7ACD400AD3969 /* CoreData */,
 				EE3F72FA1EF6AC0200AD3969 /* EaseExtensions */,
 				EE3F73131EF75DF500AD3969 /* Random */,
 			);
@@ -430,13 +458,17 @@
 				EE3F73231EF75DF600AD3969 /* Error_+Random.swift in Sources */,
 				EE79C4E81EEBB2A00016E915 /* Error_.swift in Sources */,
 				EE3F73221EF75DF600AD3969 /* Default+Random.swift in Sources */,
+				EEBB6F341EF90BA200561363 /* FileManager+Ease.swift in Sources */,
 				EE79C4E51EEBB2A00016E915 /* Default+Flickr.swift in Sources */,
 				EE3F72F91EF688BB00AD3969 /* Error_+Flickr.swift in Sources */,
 				EE3F731F1EF75DF600AD3969 /* Basic+Random.swift in Sources */,
 				EE79C4E61EEBB2A00016E915 /* SimpleAPI.swift in Sources */,
+				EE3F732E1EF82A0E00AD3969 /* CoreDataManager.swift in Sources */,
 				EE3F730B1EF6AC0200AD3969 /* Dictionary+Ease.swift in Sources */,
 				EE79C4EA1EEBB4890016E915 /* Flickr.swift in Sources */,
+				EEBB6F381EFA1EA700561363 /* NSManagedContext+Ease.swift in Sources */,
 				EE178C8F1E5AA074001A433A /* TravelLocationsMapViewController.swift in Sources */,
+				EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */,
 				EE3F732A1EF7AC0700AD3969 /* Model.xcdatamodeld in Sources */,
 				EE178C8D1E5AA074001A433A /* AppDelegate.swift in Sources */,
 			);
