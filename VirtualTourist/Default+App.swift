@@ -11,6 +11,9 @@ import Foundation
 
 public extension Default {
     
-    static let DataModelName = "Model"
+    enum FileName {
+        static let DataModel = "Model"
+        static let MainStoryboard = "Main"
+    }
     
 }

@@ -13,10 +13,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    let coreDataManager = CoreDataManager(modelName: Default.DataModelName, ofType: .withPrivatePersistentQueue)
+    let coreDataManager = CoreDataManager(modelName: Default.FileName.DataModel, ofType: .withPrivatePersistentQueue)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        print(coreDataManager.mainManagedObjectContext)
+        let storyboard = UIStoryboard(name: Default.FileName.MainStoryboard, bundle: Bundle.main)
+        
+        if let viewController = storyboard.instantiateInitialViewController() as? TravelLocationsMapViewController {
+            viewController.coreDataManager = coreDataManager
+            window?.rootViewController = viewController
+        }
+        
         return true
     }
 
@@ -28,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        coreDataManager.save()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -40,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        coreDataManager.save()
     }
 
 

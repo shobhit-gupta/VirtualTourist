@@ -13,9 +13,15 @@ import SwiftyJSON
 
 class TravelLocationsMapViewController: UIViewController {
 
+    // MARK: Public variables and types
+    public var coreDataManager: CoreDataManager!
+    
+    
     override func viewDidLoad() {
+        print("TravelLocationsMapView initialized")
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        print(coreDataManager.mainManagedObjectContext)
         Flickr.randomSearch(latitude: 31.1048, longitude: 77.1734) { (success, json, error) in
             
             guard success, error == nil, let json = json else {
