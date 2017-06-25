@@ -133,6 +133,13 @@ public final class CoreDataManager {
     }
     
     
+    public func privateChildManagedObjectContext() -> NSManagedObjectContext {
+        let pcmoc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        pcmoc.parent = mainManagedObjectContext
+        return pcmoc
+    }
+    
+    
 }
 
 
