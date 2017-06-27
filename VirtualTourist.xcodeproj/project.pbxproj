@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE053DE21F02068C0040FA6F /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE053DE11F02068C0040FA6F /* RootViewController.swift */; };
 		EE178C8D1E5AA074001A433A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178C8C1E5AA074001A433A /* AppDelegate.swift */; };
 		EE178C8F1E5AA074001A433A /* TravelLocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178C8E1E5AA074001A433A /* TravelLocationsMapViewController.swift */; };
 		EE178C921E5AA074001A433A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE178C901E5AA074001A433A /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE053DE11F02068C0040FA6F /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		EE178C891E5AA074001A433A /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE178C8C1E5AA074001A433A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE178C8E1E5AA074001A433A /* TravelLocationsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationsMapViewController.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		EE79C4DA1EEBAF730016E915 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EE053DE11F02068C0040FA6F /* RootViewController.swift */,
 				EE178C8E1E5AA074001A433A /* TravelLocationsMapViewController.swift */,
 			);
 			path = Controller;
@@ -456,6 +459,7 @@
 			files = (
 				EE79C4E71EEBB2A00016E915 /* Default.swift in Sources */,
 				EE3F73231EF75DF600AD3969 /* Error_+Random.swift in Sources */,
+				EE053DE21F02068C0040FA6F /* RootViewController.swift in Sources */,
 				EE79C4E81EEBB2A00016E915 /* Error_.swift in Sources */,
 				EE3F73221EF75DF600AD3969 /* Default+Random.swift in Sources */,
 				EEBB6F341EF90BA200561363 /* FileManager+Ease.swift in Sources */,
