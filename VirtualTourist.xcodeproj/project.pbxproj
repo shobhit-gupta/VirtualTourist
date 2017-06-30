@@ -227,8 +227,8 @@
 			isa = PBXGroup;
 			children = (
 				EE3F73271EF7A94000AD3969 /* Model.xcdatamodeld */,
-				EEB6DA391F056C0D00E83612 /* GetPhotoURLsForPin.swift */,
-				EEB6DA3B1F05E84800E83612 /* Pin+Ease.swift */,
+				EEB6DA3E1F06C09100E83612 /* Entities */,
+				EEB6DA3D1F06C08400E83612 /* Operations */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -305,6 +305,22 @@
 				EE79C4E41EEBB2A00016E915 /* Error_.swift */,
 			);
 			path = MustImport;
+			sourceTree = "<group>";
+		};
+		EEB6DA3D1F06C08400E83612 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6DA391F056C0D00E83612 /* GetPhotoURLsForPin.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		EEB6DA3E1F06C09100E83612 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6DA3B1F05E84800E83612 /* Pin+Ease.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
