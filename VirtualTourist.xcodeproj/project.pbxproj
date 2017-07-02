@@ -31,6 +31,7 @@
 		EE79C4EA1EEBB4890016E915 /* Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C4E91EEBB4890016E915 /* Flickr.swift */; };
 		EEB6DA3A1F056C0D00E83612 /* GetPhotoURLsForPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6DA391F056C0D00E83612 /* GetPhotoURLsForPin.swift */; };
 		EEB6DA3C1F05E84800E83612 /* Pin+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6DA3B1F05E84800E83612 /* Pin+Ease.swift */; };
+		EEB6DA401F07645400E83612 /* Photo+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6DA3F1F07645400E83612 /* Photo+Ease.swift */; };
 		EEBB6F341EF90BA200561363 /* FileManager+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F331EF90BA200561363 /* FileManager+Ease.swift */; };
 		EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F351EF92DBA00561363 /* Default+App.swift */; };
 		EEBB6F381EFA1EA700561363 /* NSManagedContext+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */; };
@@ -84,6 +85,7 @@
 		EE79C4E91EEBB4890016E915 /* Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickr.swift; sourceTree = "<group>"; };
 		EEB6DA391F056C0D00E83612 /* GetPhotoURLsForPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPhotoURLsForPin.swift; sourceTree = "<group>"; };
 		EEB6DA3B1F05E84800E83612 /* Pin+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Pin+Ease.swift"; sourceTree = "<group>"; };
+		EEB6DA3F1F07645400E83612 /* Photo+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+Ease.swift"; sourceTree = "<group>"; };
 		EEBB6F331EF90BA200561363 /* FileManager+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Ease.swift"; sourceTree = "<group>"; };
 		EEBB6F351EF92DBA00561363 /* Default+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+App.swift"; sourceTree = "<group>"; };
 		EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedContext+Ease.swift"; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				EEB6DA3B1F05E84800E83612 /* Pin+Ease.swift */,
+				EEB6DA3F1F07645400E83612 /* Photo+Ease.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				EE3F73221EF75DF600AD3969 /* Default+Random.swift in Sources */,
 				EEBB6F341EF90BA200561363 /* FileManager+Ease.swift in Sources */,
 				EE79C4E51EEBB2A00016E915 /* Default+Flickr.swift in Sources */,
+				EEB6DA401F07645400E83612 /* Photo+Ease.swift in Sources */,
 				EE3F72F91EF688BB00AD3969 /* Error_+Flickr.swift in Sources */,
 				EEB6DA3A1F056C0D00E83612 /* GetPhotoURLsForPin.swift in Sources */,
 				EE3F731F1EF75DF600AD3969 /* Basic+Random.swift in Sources */,
