@@ -11,12 +11,14 @@ import Foundation
 
 public extension FileManager {
     
+    public func appendFileExtension(_ fileExtension: String?, to name: String) -> String {
+        return name + ((fileExtension != nil) ? ".\(fileExtension!)" : "")
+    }
+    
+    
     public func uniqueFileName(withExtension fileExtension: String? = nil) -> String {
-        var uniqueFileName = NSUUID().uuidString
-        if let fileExtension = fileExtension {
-            uniqueFileName.append(".\(fileExtension)")
-        }
-        return uniqueFileName
+        let uniqueFileName = NSUUID().uuidString
+        return appendFileExtension(fileExtension, to: uniqueFileName)
     }
     
     
@@ -35,7 +37,7 @@ public extension FileManager {
         // Create a file path for a file inside the above folder
         let fileURL: URL
         if let name = name {
-            fileURL = folderURL.appendingPathComponent(name)
+            fileURL = folderURL.appendingPathComponent(appendFileExtension(fileExtension, to: name))
         } else {
             fileURL = folderURL.appendingPathComponent(uniqueFileName(withExtension: fileExtension))
         }
