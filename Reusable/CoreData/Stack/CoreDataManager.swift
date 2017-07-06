@@ -162,7 +162,7 @@ public extension CoreDataManager {
                                                                    withExtension: "sqlite",
                                                                    relativeTo: .documentDirectory,
                                                                    at: "CoreData") else {
-                                                                    fatalError("Couldn't create persistent store file")
+            fatalError("Couldn't create persistent store file")
         }
         
         let options = [NSMigratePersistentStoresAutomaticallyOption : true,

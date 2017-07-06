@@ -26,7 +26,8 @@ import UIKit
 class RootViewController: UIViewController {
 
     // MARK: Dependency Injections
-    internal var coreDataManager: CoreDataManager?
+    internal fileprivate(set) var coreDataManager: CoreDataManager?
+    internal fileprivate(set) var downloadQueue: OperationQueue?
     
     
     // MARK: Child View Controllers
@@ -41,18 +42,59 @@ class RootViewController: UIViewController {
     }
 
     
-    // MARK: Viewcontroller methods
+    // MARK: State variables for saving on disk
+    fileprivate var saveOnDiskTimer: DispatchSourceTimer?
+    fileprivate var shouldStopSavingOnDisk = false
+    
+    
+    // MARK: Standard callbacks
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCoreData()
+        setup()
+    }
+    
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == #keyPath(downloadQueue.operationCount), let change = change {
+            guard let newValue = change[.newKey] as? Int else {
+                return
+            }
+            
+            // - If there are no operations on the downloadQueue, we should stop
+            // saving on disk after making sure that everything has been saved.
+            // - If we aren't saving on disk and there is a change in operationCount 
+            // in downloadQueue, it is reasonably inexpensive to start saving periodically.
+            if newValue == 0 {
+                shouldStopSavingOnDisk = true
+                
+            } else if !isPeriodicallySavingOnDisk {
+                periodicallySaveOnDisk()
+            }
+        }
     }
 
 }
 
 
+//******************************************************************************
+//                                  MARK: Setup
+//******************************************************************************
 fileprivate extension RootViewController {
+    
+    func setup() {
+        setupDownloadQueue()
+        setupCoreData()
+    }
+    
+    
+    private func setupDownloadQueue() {
+        downloadQueue = OperationQueue()
+        downloadQueue?.maxConcurrentOperationCount = 3
+        addObserver(self, forKeyPath: #keyPath(downloadQueue.operationCount), options: [.new], context: nil)
+    }
+    
 
-    func setupCoreData() {
+    private func setupCoreData() {
         let coreDataCompletion = {
             self.setupView()
         }
@@ -78,9 +120,11 @@ fileprivate extension RootViewController {
     private func setupTravelLocationsMapViewController() {
         if let coreDataManager = coreDataManager {
             travelLocationsMapVC.coreDataManager = coreDataManager
+            travelLocationsMapVC.downloadQueue = downloadQueue
             addChild(travelLocationsMapVC)
         }
     }
+    
     
     // Leave blank if not required
     private func updateView() {
@@ -90,8 +134,12 @@ fileprivate extension RootViewController {
 }
 
 
+//******************************************************************************
+//                      MARK: View Controller Containment
+//
 // Use View Controller Containment API to ensure that appearance callbacks of
 // child view controller, such as viewWillAppear etc. are called.
+//******************************************************************************
 fileprivate extension RootViewController {
     
     func addChild(_ child: UIViewController) {
@@ -107,6 +155,59 @@ fileprivate extension RootViewController {
         child.willMove(toParentViewController: nil)
         child.view.removeFromSuperview()
         child.removeFromParentViewController()
+    }
+    
+}
+
+
+//******************************************************************************
+//                              MARK: Save on Disk
+//******************************************************************************
+fileprivate extension RootViewController {
+    
+    var isPeriodicallySavingOnDisk: Bool {
+        return saveOnDiskTimer != nil
+    }
+    
+    func periodicallySaveOnDisk() {
+        
+        // Stop previous timers
+        stopPeriodicallySavingOnDisk()
+        
+        // Set a periodical timer in a separate queue
+        let timerQueue = DispatchQueue(label: "com.from101.VirtualTourist.saveOnDiskTimer", qos: .utility, attributes: .concurrent)
+        saveOnDiskTimer = DispatchSource.makeTimerSource(queue: timerQueue)
+        saveOnDiskTimer?.scheduleRepeating(deadline: .now(), interval: .seconds(3), leeway: .seconds(1))
+        
+        // Save on disk
+        saveOnDiskTimer?.setEventHandler(handler: { [weak self] in
+            guard let s = self else { return }
+            s.printOnMain("---> Timer called @ \(Date()) ")
+            s.coreDataManager?.save()
+            if s.shouldStopSavingOnDisk {
+                s.stopPeriodicallySavingOnDisk()
+            }
+        })
+        
+        // Start the periodical timer
+        saveOnDiskTimer?.resume()
+        printOnMain("===> Timer initiated")
+        
+    }
+    
+    
+    func stopPeriodicallySavingOnDisk() {
+        saveOnDiskTimer?.cancel()
+        saveOnDiskTimer = nil
+        shouldStopSavingOnDisk = false
+        printOnMain("===> Timer Stopped")
+    }
+    
+    
+    func printOnMain(_ str: String) {
+        DispatchQueue.main.async {
+            print(str)
+        }
     }
     
 }
