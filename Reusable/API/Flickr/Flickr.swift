@@ -56,7 +56,6 @@ fileprivate extension Flickr {
 
 public extension Flickr {
     
-    
     public static func search(latitude: Double,
                               longitude: Double,
                               page: Int? = nil,
@@ -95,8 +94,24 @@ public extension Flickr {
                 return
             }
             
-            if let pages = json["photos"]["pages"].int,
-                let perPage = json["photos"]["perpage"].int {
+            // Parse JSON response: Example of expected JSON response from Flickr:
+            // Case 1: Everything goes well.
+            // {
+            //     "photos": {
+            //         "page": 7,
+            //         "pages": 1428,
+            //         "perpage": 3,
+            //         "total": "4284",
+            //         "photo": [...]
+            //     },
+            //     "stat": "ok"
+            // }
+            
+            if let status = json[Default.FlickrAPI.Response.Key.Status].string,
+                status.lowercased() == Default.FlickrAPI.Response.Value.OKStatus.lowercased(),
+                let pages = json[Default.FlickrAPI.Response.Key.Photos][Default.FlickrAPI.Response.Key.Pages].int,
+                let perPage = json[Default.FlickrAPI.Response.Key.Photos][Default.FlickrAPI.Response.Key.PerPage].int {
+                
                     // [Flickr API Docs]: 
                     // - Flickr only returns first 4000 results at max.
                     // - Unlike standard photo queries, geo queries return 250 results per page.
@@ -105,6 +120,18 @@ public extension Flickr {
                 
                     search(latitude: latitude, longitude: longitude, page: randomPage, completion: completion)
                 
+            } else if let message = json[Default.FlickrAPI.Response.Key.Message].string {
+                
+                // Case 2: Some error
+                // {
+                //     "stat": "fail",
+                //     "code": 999,
+                //     "message": "Not a valid longitude"
+                // }
+
+                completion(false, nil, Error_.SimpleAPI.MethodFailed(method: Default.FlickrAPI.Method.SearchPhotos, message: message))
+                return
+            
             } else {
                 completion(false, nil, Error_.SimpleAPI.MethodFailedWithUnexpectedJSONResponse(forMethod: Default.FlickrAPI.Method.SearchPhotos))
                 return
@@ -114,5 +141,68 @@ public extension Flickr {
         }
     
     }
+ 
     
 }
+
+
+public extension Flickr {
+
+    public static func getPhotoURLs(from json: JSON) -> [URL] {
+        var urls = [URL]()
+        
+        // Parse JSON response: Example of expected JSON response from Flickr:
+        // Case 1: Everything goes well.
+        // {
+        //     "photos": {
+        //         "page": 7,
+        //         "pages": 1428,
+        //         "perpage": 3,
+        //         "total": "4284",
+        //         "photo": [
+        //             {
+        //                 "id": "35321531451",
+        //                 "owner": "26984212@N03",
+        //                 "secret": "32d5873bac",
+        //                 "server": "4265",
+        //                 "farm": 5,
+        //                 "title": "Policeman, Shimla",
+        //                 "ispublic": 1,
+        //                 "isfriend": 0,
+        //                 "isfamily": 0,
+        //                 "url_m": "https://farm5.staticflickr.com/4265/35321531451_32d5873bac.jpg",
+        //                 "height_m": "500",
+        //                 "width_m": "334"
+        //             },
+        //             {
+        //             	...
+        //             }
+        //         ]
+        //     },
+        //     "stat": "ok"
+        // }
+
+        if let photos = json[Default.FlickrAPI.Response.Key.Photos][Default.FlickrAPI.Response.Key.Photo].array {
+            for photo in photos {
+                if let url = photo[Default.FlickrAPI.Response.Key.MediumURL].url {
+                    urls.append(url)
+                }
+            }
+            
+        }
+        return urls
+    }
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
