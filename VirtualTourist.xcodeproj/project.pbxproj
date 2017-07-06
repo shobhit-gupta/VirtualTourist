@@ -15,6 +15,7 @@
 		EE178C971E5AA074001A433A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE178C951E5AA074001A433A /* LaunchScreen.storyboard */; };
 		EE178CA21E5AA074001A433A /* VirtualTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178CA11E5AA074001A433A /* VirtualTouristTests.swift */; };
 		EE178CAD1E5AA075001A433A /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178CAC1E5AA075001A433A /* VirtualTouristUITests.swift */; };
+		EE1B59FB1F09FA2F00A8E473 /* DownloadPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1B59FA1F09FA2F00A8E473 /* DownloadPhoto.swift */; };
 		EE3F72F91EF688BB00AD3969 /* Error_+Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F72F81EF688BB00AD3969 /* Error_+Flickr.swift */; };
 		EE3F730B1EF6AC0200AD3969 /* Dictionary+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F72FF1EF6AC0200AD3969 /* Dictionary+Ease.swift */; };
 		EE3F731F1EF75DF600AD3969 /* Basic+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F73151EF75DF500AD3969 /* Basic+Random.swift */; };
@@ -35,6 +36,7 @@
 		EEBB6F341EF90BA200561363 /* FileManager+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F331EF90BA200561363 /* FileManager+Ease.swift */; };
 		EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F351EF92DBA00561363 /* Default+App.swift */; };
 		EEBB6F381EFA1EA700561363 /* NSManagedContext+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */; };
+		EEF32FCC1F0DCD8F001E00E8 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF32FCB1F0DCD8F001E00E8 /* AsynchronousOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,7 @@
 		EE178CA81E5AA075001A433A /* VirtualTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE178CAC1E5AA075001A433A /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
 		EE178CAE1E5AA075001A433A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE1B59FA1F09FA2F00A8E473 /* DownloadPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPhoto.swift; sourceTree = "<group>"; };
 		EE3F72F81EF688BB00AD3969 /* Error_+Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error_+Flickr.swift"; sourceTree = "<group>"; };
 		EE3F72FF1EF6AC0200AD3969 /* Dictionary+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ease.swift"; sourceTree = "<group>"; };
 		EE3F73151EF75DF500AD3969 /* Basic+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Basic+Random.swift"; sourceTree = "<group>"; };
@@ -89,6 +92,7 @@
 		EEBB6F331EF90BA200561363 /* FileManager+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Ease.swift"; sourceTree = "<group>"; };
 		EEBB6F351EF92DBA00561363 /* Default+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+App.swift"; sourceTree = "<group>"; };
 		EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedContext+Ease.swift"; sourceTree = "<group>"; };
+		EEF32FCB1F0DCD8F001E00E8 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +270,7 @@
 				EE79C4DE1EEBB2A00016E915 /* API */,
 				EE3F732B1EF7ACD400AD3969 /* CoreData */,
 				EE3F72FA1EF6AC0200AD3969 /* EaseExtensions */,
+				EEF32FCA1F0DCD26001E00E8 /* Performance */,
 				EE3F73131EF75DF500AD3969 /* Random */,
 			);
 			path = Reusable;
@@ -313,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				EEB6DA391F056C0D00E83612 /* GetPhotoURLsForPin.swift */,
+				EE1B59FA1F09FA2F00A8E473 /* DownloadPhoto.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -324,6 +330,14 @@
 				EEB6DA3F1F07645400E83612 /* Photo+Ease.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		EEF32FCA1F0DCD26001E00E8 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				EEF32FCB1F0DCD8F001E00E8 /* AsynchronousOperation.swift */,
+			);
+			path = Performance;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -493,6 +507,7 @@
 				EE3F72F91EF688BB00AD3969 /* Error_+Flickr.swift in Sources */,
 				EEB6DA3A1F056C0D00E83612 /* GetPhotoURLsForPin.swift in Sources */,
 				EE3F731F1EF75DF600AD3969 /* Basic+Random.swift in Sources */,
+				EEF32FCC1F0DCD8F001E00E8 /* AsynchronousOperation.swift in Sources */,
 				EE79C4E61EEBB2A00016E915 /* SimpleAPI.swift in Sources */,
 				EE3F732E1EF82A0E00AD3969 /* CoreDataManager.swift in Sources */,
 				EE3F730B1EF6AC0200AD3969 /* Dictionary+Ease.swift in Sources */,
@@ -502,6 +517,7 @@
 				EE178C8F1E5AA074001A433A /* TravelLocationsMapViewController.swift in Sources */,
 				EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */,
 				EE3F732A1EF7AC0700AD3969 /* Model.xcdatamodeld in Sources */,
+				EE1B59FB1F09FA2F00A8E473 /* DownloadPhoto.swift in Sources */,
 				EE178C8D1E5AA074001A433A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
