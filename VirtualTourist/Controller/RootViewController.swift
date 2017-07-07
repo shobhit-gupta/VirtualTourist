@@ -32,15 +32,8 @@ class RootViewController: UIViewController {
     
     // MARK: Child View Controllers
     // IMPORTANT: Do not forget to add these as child view controller with addChild(_:) method
-    public private(set) lazy var travelLocationsMapVC: TravelLocationsMapViewController = self.instantiateViewController(identifier: "TravelLocationsMapViewController", classType: TravelLocationsMapViewController.self)
+    public private(set) lazy var travelLocationsMapVC: TravelLocationsMapViewController! = TravelLocationsMapViewController.storyboardInstance()
     
-    
-    private func instantiateViewController<T: UIViewController>(identifier: String, classType: T.Type) -> T {
-        let storyboard = UIStoryboard(name: Default.FileName.MainStoryboard, bundle: Bundle.main)
-        let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! T
-        return viewController
-    }
-
     
     // MARK: State variables for saving on disk
     fileprivate var saveOnDiskTimer: DispatchSourceTimer?

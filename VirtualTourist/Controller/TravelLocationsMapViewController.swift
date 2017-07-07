@@ -236,3 +236,13 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
     }
 
 }
+
+
+extension TravelLocationsMapViewController {
+    
+    class func storyboardInstance() -> TravelLocationsMapViewController? {
+        let storyboard = UIStoryboard(name: Default.FileName.MainStoryboard, bundle: Bundle.main)
+        return storyboard.instantiateViewController(withIdentifier: "TravelLocationsMapViewController") as? TravelLocationsMapViewController
+    }
+    
+}
