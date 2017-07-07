@@ -43,20 +43,20 @@ class TravelLocationsMapViewController: UIViewController {
         
         printStat(self)
         
-        for _ in stride(from: 0, to: 10, by: 1) {
-            
+//        for _ in stride(from: 0, to: 10, by: 1) {
+//
             // Generate random latiude and longitude
-            let latitude = Double.random(lower: -90.0, upper: 90.0)
-            let longitude = Double.random(lower: -180.0, upper: 180.0)
-            print("New Random coordinate: Latitude: \(latitude), Longitude: \(longitude)")
-            
-            // Generate Pin
-            let pin = Pin(latitude: latitude, longitude: longitude, insertInto: coreDataManager.mainManagedObjectContext)
+//            let latitude = Double.random(lower: -90.0, upper: 90.0)
+//            let longitude = Double.random(lower: -180.0, upper: 180.0)
+//            print("New Random coordinate: Latitude: \(latitude), Longitude: \(longitude)")
+//            
+//            // Generate Pin
+//            let pin = Pin(location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), insertInto: coreDataManager.mainManagedObjectContext)
             
             // GetPhotoURLsForPin
-            let downloadMOC = coreDataManager.privateChildManagedObjectContext()
-            if let getPhotoURLsOp = GetPhotoURLsForPin(withId: pin.objectID, in: downloadMOC, queue: downloadQueue) {
-                
+//            let downloadMOC = coreDataManager.privateChildManagedObjectContext()
+//            if let getPhotoURLsOp = GetPhotoURLsForPin(withId: pin.objectID, in: downloadMOC, queue: downloadQueue) {
+            
 //                getPhotoURLsOp.completionBlock = {
                     // On completion of previous op, add DownloadPhoto op
 //
@@ -86,12 +86,12 @@ class TravelLocationsMapViewController: UIViewController {
 //
 //                }
                 
-                printOnMain("Add getPhotoURLsOp for pin: \(pin.objectID)")
-                downloadQueue.addOperation(getPhotoURLsOp)
-            }
+//                printOnMain("Add getPhotoURLsOp for pin: \(pin.objectID)")
+//                downloadQueue.addOperation(getPhotoURLsOp)
+//            }
         
 
-        }
+//        }
         
         
     }
@@ -139,17 +139,90 @@ fileprivate extension TravelLocationsMapViewController {
     
     private func setupMapView() {
         mapView.delegate = self
+        addAnnotations()
+        addLongPressGesture()
+    }
+    
+    // Add annotations for fetched pins to the map
+    private func addAnnotations() {
         if let annotations = fetchedPinsController.fetchedObjects?.map({ $0.createAnnotation() }) {
             mapView.addAnnotations(annotations)
         }
     }
     
+    // Add a longPressGesture to mapView
+    private func addLongPressGesture() {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(mapViewLongPressed(sender:)))
+        mapView.addGestureRecognizer(longPress)
+    }
+    
+    
 }
 
-extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {}
+
+fileprivate extension TravelLocationsMapViewController {
+    
+    @objc func mapViewLongPressed(sender: UILongPressGestureRecognizer) {
+        
+        switch sender.state {
+        case .ended:
+            // Get coordinate of the point pressed
+            let touchPoint = sender.location(in: mapView)
+            let location = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            addPin(for: location)
+            //getPhotoURLs(for: pin)
+            
+        default:
+            break
+        }
+    }
+    
+    
+    func addPin(for location: CLLocationCoordinate2D) {
+        let _ = Pin(location: location, insertInto: coreDataManager.mainManagedObjectContext)
+    }
+    
+    
+    func getPhotoURLs(for pin: Pin) {
+        let downloadMOC = coreDataManager.privateChildManagedObjectContext()
+        if let getPhotoURLsOp = GetPhotoURLsForPin(withId: pin.objectID, in: downloadMOC) {
+            downloadQueue.addOperation(getPhotoURLsOp)
+        }
+    }
+    
+}
+
+extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        guard controller === fetchedPinsController else {
+            return
+        }
+        
+        switch type {
+        case .insert:
+            guard let pin = anObject as? Pin else {
+                return
+            }
+            mapView.addAnnotation(pin.createAnnotation())
+            print("Annotation added for a new pin at: \(pin.latitude), \(pin.longitude)")
+            
+        default:
+            break
+        }
+    }
+
+}
 
 
 extension TravelLocationsMapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        annotationView.animatesDrop = true
+        return annotationView
+    }
+    
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let pinAnnotation = view.annotation as? PinAnnotation else {
@@ -157,6 +230,9 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
         }
         print(">>>>>>>>>>. Selected pin: \(pinAnnotation.pinId) <<<<<<<<<<<<")
         
+        defer {
+            mapView.deselectAnnotation(pinAnnotation, animated: true)
+        }
     }
 
 }

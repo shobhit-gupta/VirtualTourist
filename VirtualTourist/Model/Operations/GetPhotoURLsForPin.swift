@@ -16,16 +16,14 @@ class GetPhotoURLsForPin: AsynchronousOperation {
     // MARK: Private variables and types
     private let pin: Pin
     private let managedObjectContext: NSManagedObjectContext
-    private let downloadQueue: OperationQueue
     
     // MARK: Initializers
-    init?(withId id: NSManagedObjectID, in context: NSManagedObjectContext, queue: OperationQueue) {
+    init?(withId id: NSManagedObjectID, in context: NSManagedObjectContext) {
         guard let pin = context.object(with: id) as? Pin else {
             return nil
         }
         managedObjectContext = context
         self.pin = pin
-        downloadQueue = queue
         super.init()
     }
     
@@ -60,8 +58,6 @@ class GetPhotoURLsForPin: AsynchronousOperation {
                 
             }
             
-            self.downloadPhotos()
-
             defer {
                 // Save private child context. Changes will be pushed to the main context.
                 self.managedObjectContext.performAndWait {
@@ -77,22 +73,22 @@ class GetPhotoURLsForPin: AsynchronousOperation {
     }
     
     
-    func downloadPhotos() {
-        if let photos = pin.photos {
-            photos.forEach({ (photo) in
-                guard let photo = photo as? Photo else {
-                    self.printOnMain("Here is the issue")
-                    return
-                }
-                if let downloadPhotoOp = DownloadPhoto(withId: photo.objectID, in: managedObjectContext, progressHandler: { (fraction) in
-                    //self.printOnMain("Download Progress: \(fraction * 100)% of \(photo.objectID)")
-                }) {
-                    self.printOnMain("Add downloadPhotoOp for photo: \(photo.objectID)")
-                    downloadQueue.addOperation(downloadPhotoOp)
-                }
-            })
-        }
-    }
+//    func downloadPhotos() {
+//        if let photos = pin.photos {
+//            photos.forEach({ (photo) in
+//                guard let photo = photo as? Photo else {
+//                    self.printOnMain("Here is the issue")
+//                    return
+//                }
+//                if let downloadPhotoOp = DownloadPhoto(withId: photo.objectID, in: managedObjectContext, progressHandler: { (fraction) in
+//                    //self.printOnMain("Download Progress: \(fraction * 100)% of \(photo.objectID)")
+//                }) {
+//                    self.printOnMain("Add downloadPhotoOp for photo: \(photo.objectID)")
+//                    downloadQueue.addOperation(downloadPhotoOp)
+//                }
+//            })
+//        }
+//    }
     
     
     func printOnMain(_ str: String) {
