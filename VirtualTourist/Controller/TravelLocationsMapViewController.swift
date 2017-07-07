@@ -121,7 +121,7 @@ class TravelLocationsMapViewController: UIViewController {
 
 
 fileprivate extension TravelLocationsMapViewController {
-
+    
     func setupDataSource() {
         // Fetch all the pins from coredata
         do {
@@ -130,26 +130,33 @@ fileprivate extension TravelLocationsMapViewController {
             print(error.info())
         }
     }
-
-
+    
+    
     func setupUI() {
         setupMapView()
     }
-
-
+    
+    
     private func setupMapView() {
         mapView.delegate = self
         if let annotations = fetchedPinsController.fetchedObjects?.map({ $0.createAnnotation() }) {
             mapView.addAnnotations(annotations)
         }
     }
-
+    
 }
 
 extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {}
 
 
 extension TravelLocationsMapViewController: MKMapViewDelegate {
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let pinAnnotation = view.annotation as? PinAnnotation else {
+            return
+        }
+        print(">>>>>>>>>>. Selected pin: \(pinAnnotation.pinId) <<<<<<<<<<<<")
+        
     }
 
 }
