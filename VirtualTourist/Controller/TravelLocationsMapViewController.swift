@@ -120,6 +120,9 @@ class TravelLocationsMapViewController: UIViewController {
 }
 
 
+//******************************************************************************
+//                                  MARK: Setup
+//******************************************************************************
 fileprivate extension TravelLocationsMapViewController {
     
     func setupDataSource() {
@@ -204,8 +207,8 @@ extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {
             guard let pin = anObject as? Pin else {
                 return
             }
-            mapView.addAnnotation(pin.createAnnotation())
-            print("Annotation added for a new pin at: \(pin.latitude), \(pin.longitude)")
+            let pinAnnotation = pin.createAnnotation()
+            mapView.addAnnotation(pinAnnotation)
             
         default:
             break
@@ -228,7 +231,8 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
         guard let pinAnnotation = view.annotation as? PinAnnotation else {
             return
         }
-        print(">>>>>>>>>>. Selected pin: \(pinAnnotation.pinId) <<<<<<<<<<<<")
+        
+        segueToAlbum(withPinId: pinAnnotation.pinId)
         
         defer {
             mapView.deselectAnnotation(pinAnnotation, animated: true)
@@ -240,7 +244,28 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
 
 extension TravelLocationsMapViewController {
     
-    class func storyboardInstance() -> TravelLocationsMapViewController? {
+    fileprivate func segueToAlbum(withPinId pinId: NSManagedObjectID) {
+        guard let albumViewController = AlbumViewController.storyboardInstance(),
+            let pin = coreDataManager.mainManagedObjectContext.object(with: pinId) as? Pin  else {
+                return
+        }
+        
+        // Inject dependencies
+        albumViewController.coreDataManager = coreDataManager
+        albumViewController.downloadQueue = downloadQueue
+        albumViewController.pin = pin
+        
+        // Present
+        if let navigationController = navigationController {
+            navigationController.pushViewController(albumViewController, animated: true)
+        } else {
+            present(albumViewController, animated: true, completion: nil)
+        }
+        
+    }
+    
+    
+    public class func storyboardInstance() -> TravelLocationsMapViewController? {
         let storyboard = UIStoryboard(name: Default.FileName.MainStoryboard, bundle: Bundle.main)
         return storyboard.instantiateViewController(withIdentifier: "TravelLocationsMapViewController") as? TravelLocationsMapViewController
     }
