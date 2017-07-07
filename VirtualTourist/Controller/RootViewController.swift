@@ -84,6 +84,7 @@ fileprivate extension RootViewController {
     func setup() {
         setupDownloadQueue()
         setupCoreData()
+        subscribeToNotifications()
     }
     
     
@@ -129,6 +130,14 @@ fileprivate extension RootViewController {
     // Leave blank if not required
     private func updateView() {
         
+    }
+    
+    
+    private func subscribeToNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(applicationDidEnterBackground(_:)),
+                                               name: .UIApplicationDidEnterBackground,
+                                               object: nil)
     }
     
 }
@@ -204,6 +213,11 @@ fileprivate extension RootViewController {
     }
     
     
+    @objc func applicationDidEnterBackground(_ notification: Notification) {
+        coreDataManager?.save()
+    }
+    
+    
     func printOnMain(_ str: String) {
         DispatchQueue.main.async {
             print(str)
@@ -211,3 +225,6 @@ fileprivate extension RootViewController {
     }
     
 }
+
+
+
