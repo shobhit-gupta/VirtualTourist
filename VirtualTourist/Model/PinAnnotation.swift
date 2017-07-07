@@ -17,7 +17,7 @@ public class PinAnnotation: MKPointAnnotation {
     init(pin: Pin) {
         self.pinId = pin.objectID
         super.init()
-        coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+        coordinate = pin.location
     }
     
 }

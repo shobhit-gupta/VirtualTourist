@@ -14,4 +14,10 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         
     @IBOutlet weak var mapView: MKMapView!
     
+    public func showCoordinate(_ coordinate: CLLocationCoordinate2D) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 1.0)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
+    
 }

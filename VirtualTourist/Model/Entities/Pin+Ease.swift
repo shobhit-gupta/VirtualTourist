@@ -13,6 +13,11 @@ import MapKit
 
 
 public extension Pin {
+    
+    public var location: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    
 
     convenience init(location: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
         guard let entityDescription = NSEntityDescription.entity(forEntityName: "Pin", in: context) else {
@@ -29,5 +34,6 @@ public extension Pin {
     public func createAnnotation() -> PinAnnotation {
         return PinAnnotation(pin: self)
     }
+    
 
 }
