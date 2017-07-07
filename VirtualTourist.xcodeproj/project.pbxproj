@@ -37,6 +37,7 @@
 		EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F351EF92DBA00561363 /* Default+App.swift */; };
 		EEBB6F381EFA1EA700561363 /* NSManagedContext+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */; };
 		EEF32FCC1F0DCD8F001E00E8 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF32FCB1F0DCD8F001E00E8 /* AsynchronousOperation.swift */; };
+		EEF32FD21F0EA617001E00E8 /* PinAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF32FD11F0EA617001E00E8 /* PinAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		EEBB6F351EF92DBA00561363 /* Default+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+App.swift"; sourceTree = "<group>"; };
 		EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedContext+Ease.swift"; sourceTree = "<group>"; };
 		EEF32FCB1F0DCD8F001E00E8 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
+		EEF32FD11F0EA617001E00E8 /* PinAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +237,7 @@
 				EE3F73271EF7A94000AD3969 /* Model.xcdatamodeld */,
 				EEB6DA3E1F06C09100E83612 /* Entities */,
 				EEB6DA3D1F06C08400E83612 /* Operations */,
+				EEF32FD11F0EA617001E00E8 /* PinAnnotation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				EE3F730B1EF6AC0200AD3969 /* Dictionary+Ease.swift in Sources */,
 				EEB6DA3C1F05E84800E83612 /* Pin+Ease.swift in Sources */,
 				EE79C4EA1EEBB4890016E915 /* Flickr.swift in Sources */,
+				EEF32FD21F0EA617001E00E8 /* PinAnnotation.swift in Sources */,
 				EEBB6F381EFA1EA700561363 /* NSManagedContext+Ease.swift in Sources */,
 				EE178C8F1E5AA074001A433A /* TravelLocationsMapViewController.swift in Sources */,
 				EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */,

@@ -14,22 +14,40 @@ import CoreData
 
 class TravelLocationsMapViewController: UIViewController {
 
-    // MARK: Public variables and types
+    // MARK: Dependencies
     public var coreDataManager: CoreDataManager!
     public var downloadQueue: OperationQueue!
     
     
+    // MARK: IBOutlets
+    @IBOutlet weak var mapView: MKMapView!
+    
+    
+    // MARK: Private variables and types
+    fileprivate lazy var fetchedPinsController: NSFetchedResultsController<Pin> = {
+        let pinFetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+        pinFetchRequest.sortDescriptors = [NSSortDescriptor(key: "latitude", ascending: true)]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: pinFetchRequest,
+                                                                  managedObjectContext: self.coreDataManager.mainManagedObjectContext,
+                                                                  sectionNameKeyPath: nil,
+                                                                  cacheName: nil)
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+    }()
+    
+    
     override func viewDidLoad() {
-        print("TravelLocationsMapView initialized")
         super.viewDidLoad()
+        setupDataSource()
+        setupUI()
         
         printStat(self)
         
         for _ in stride(from: 0, to: 10, by: 1) {
             
             // Generate random latiude and longitude
-            let latitude = 31.1048//Double.random(lower: -90.0, upper: 90.0)
-            let longitude = 77.1734//Double.random(lower: -180.0, upper: 180.0)
+            let latitude = Double.random(lower: -90.0, upper: 90.0)
+            let longitude = Double.random(lower: -180.0, upper: 180.0)
             print("New Random coordinate: Latitude: \(latitude), Longitude: \(longitude)")
             
             // Generate Pin
@@ -75,34 +93,6 @@ class TravelLocationsMapViewController: UIViewController {
 
         }
         
-//        addObserver(self, forKeyPath: #keyPath(downloadQueue.operationCount), options: [.old, .new], context: nil)
-//        
-//        let q = DispatchQueue(label: "coreDataSave", qos: .utility)
-//        let t = DispatchTime.now() + .seconds(10)
-//        q.asyncAfter(deadline: t) {
-//            self.printOnMain("======> Put wait")
-//            self.downloadQueue.waitUntilAllOperationsAreFinished()
-//            self.printOnMain("======> End wait")
-//            self.coreDataManager.save()
-//            
-//        }
-//        
-//        printOnMain("=====> Outside wait")
-        
-        
-        
-        
-//        Flickr.randomSearch(latitude: 31.1048, longitude: 77.1734) { (success, json, error) in
-//            
-//            guard success, error == nil, let json = json else {
-//                if let error = error {
-//                    print(error.localizedDescription)
-//                }
-//                return
-//            }
-//            
-//            print("\n\n=========================================\n\(json)")
-//        }
         
     }
 
@@ -129,3 +119,37 @@ class TravelLocationsMapViewController: UIViewController {
 
 }
 
+
+fileprivate extension TravelLocationsMapViewController {
+
+    func setupDataSource() {
+        // Fetch all the pins from coredata
+        do {
+            try fetchedPinsController.performFetch()
+        } catch {
+            print(error.info())
+        }
+    }
+
+
+    func setupUI() {
+        setupMapView()
+    }
+
+
+    private func setupMapView() {
+        mapView.delegate = self
+        if let annotations = fetchedPinsController.fetchedObjects?.map({ $0.createAnnotation() }) {
+            mapView.addAnnotations(annotations)
+        }
+    }
+
+}
+
+extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {}
+
+
+extension TravelLocationsMapViewController: MKMapViewDelegate {
+    }
+
+}

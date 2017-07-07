@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import CoreLocation
+import MapKit
 
 
 public extension Pin {
@@ -22,6 +23,11 @@ public extension Pin {
         // self.init(entity: Pin.entity(), insertInto: context)
         self.latitude = latitude
         self.longitude = longitude
+    }
+    
+    
+    public func createAnnotation() -> PinAnnotation {
+        return PinAnnotation(pin: self)
     }
 
 }

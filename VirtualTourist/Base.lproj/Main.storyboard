@@ -59,6 +59,9 @@
                             <constraint firstItem="hBU-ug-iwe" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="xcS-Wl-QlM"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="hBU-ug-iwe" id="xOk-zc-vVu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

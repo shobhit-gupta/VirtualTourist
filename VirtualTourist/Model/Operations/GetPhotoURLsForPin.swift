@@ -42,7 +42,7 @@ class GetPhotoURLsForPin: AsynchronousOperation {
             
             // Construct photos with returned urls. Though download them later on according to need.
             let urlList = Flickr.getPhotoURLs(from: json)
-            urlList[0..<5].forEach {
+            urlList.forEach {
                 let photo = Photo(url: $0, pin: self.pin, insertInto: self.managedObjectContext)
                 self.pin.addToPhotos(photo)
             }
