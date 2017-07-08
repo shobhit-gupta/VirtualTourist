@@ -78,6 +78,7 @@
 		EE178CAC1E5AA075001A433A /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
 		EE178CAE1E5AA075001A433A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE1B59FA1F09FA2F00A8E473 /* DownloadPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPhoto.swift; sourceTree = "<group>"; };
+		EE38767E1F110968002D8CB9 /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
 		EE3F72F81EF688BB00AD3969 /* Error_+Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error_+Flickr.swift"; sourceTree = "<group>"; };
 		EE3F72FF1EF6AC0200AD3969 /* Dictionary+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ease.swift"; sourceTree = "<group>"; };
 		EE3F73151EF75DF500AD3969 /* Basic+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Basic+Random.swift"; sourceTree = "<group>"; };
@@ -138,6 +139,7 @@
 		EE0BDB6C1E5AF1D600EAD974 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE38767E1F110968002D8CB9 /* PureLayout.framework */,
 				EEE3ECA51F10FDF800409E16 /* M13ProgressSuite.framework */,
 				EE79C4D31EEABA120016E915 /* Alamofire.framework */,
 				EE79C4D41EEABA120016E915 /* SwiftyJSON.framework */,

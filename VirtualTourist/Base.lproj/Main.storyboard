@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -84,24 +85,33 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uFP-zh-cdH">
-                                            <rect key="frame" x="0.0" y="0.0" width="280" height="168"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6hp-Fp-dhm">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 </imageView>
                                             </subviews>
                                         </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRC-QX-gfF" customClass="M13ProgressViewRing">
+                                            <rect key="frame" x="12.5" y="12.5" width="25" height="25"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" red="0.91372549020000005" green="0.10980392160000001" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="TRC-QX-gfF" firstAttribute="centerY" secondItem="uFP-zh-cdH" secondAttribute="centerY" id="2z4-hS-LYr"/>
                                     <constraint firstItem="uFP-zh-cdH" firstAttribute="centerX" secondItem="5dI-81-Zxe" secondAttribute="centerX" id="KoD-V8-lA9"/>
                                     <constraint firstItem="uFP-zh-cdH" firstAttribute="centerY" secondItem="5dI-81-Zxe" secondAttribute="centerY" id="Lxh-zG-cxb"/>
                                     <constraint firstItem="uFP-zh-cdH" firstAttribute="height" secondItem="5dI-81-Zxe" secondAttribute="height" id="RLo-gj-EW4"/>
+                                    <constraint firstItem="TRC-QX-gfF" firstAttribute="height" secondItem="uFP-zh-cdH" secondAttribute="height" multiplier="0.5" id="erU-j7-LLA"/>
+                                    <constraint firstItem="TRC-QX-gfF" firstAttribute="width" secondItem="uFP-zh-cdH" secondAttribute="width" multiplier="0.5" id="iQZ-W5-pqe"/>
+                                    <constraint firstItem="TRC-QX-gfF" firstAttribute="centerX" secondItem="uFP-zh-cdH" secondAttribute="centerX" id="ncX-Wp-fjq"/>
                                     <constraint firstItem="uFP-zh-cdH" firstAttribute="width" secondItem="5dI-81-Zxe" secondAttribute="width" id="wI2-Qd-Ebe"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="6hp-Fp-dhm" id="OGa-mY-eLK"/>
+                                    <outlet property="progressView" destination="TRC-QX-gfF" id="sW6-dk-orp"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

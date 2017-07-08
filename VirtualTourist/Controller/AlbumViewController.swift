@@ -239,22 +239,13 @@ extension AlbumViewController {
         let photo = fetchedPhotosController.object(at: indexPath)
         if let imageData = photo.image,
             let image = UIImage(data: imageData as Data) {
-            cell.imageView.image = image
+            cell.image = image
+            cell.layer.cornerRadius = Default.GridViewCell.CornerRadius
         } else {
             // Lazily download photos
             download(photo: photo)
         }
     }
-    
-}
-
-
-//******************************************************************************
-//                          MARK: Collection View Delegate
-//******************************************************************************
-extension AlbumViewController {
-    
-    
     
 }
 
