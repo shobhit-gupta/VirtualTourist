@@ -241,8 +241,13 @@ extension AlbumViewController {
             let image = UIImage(data: imageData as Data) {
             cell.image = image
             cell.layer.cornerRadius = Default.GridViewCell.CornerRadius
+        
+        } else if photo.downloadInitiated {
+            cell.progress = photo.downloadedFraction
+        
         } else {
             // Lazily download photos
+            cell.progress = nil
             download(photo: photo)
         }
     }

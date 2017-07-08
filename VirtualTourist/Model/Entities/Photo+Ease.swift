@@ -19,6 +19,7 @@ public extension Photo {
         self.init(entity: entityDescription, insertInto: context)
         self.url = url.absoluteString
         self.pin = pin
+        
     }
 
 }

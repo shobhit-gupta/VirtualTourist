@@ -31,12 +31,16 @@ class AlbumViewCell: UICollectionViewCell {
         }
     }
     
-    public var progress: Double? {
+    public var progress: Float? {
         didSet {
             if case .completed = currentState {
                 return
             }
-            currentState = progress != nil ? .progressing(fractionCompleted: progress!) : .indeterminate
+            if let progress = progress {
+                currentState = .progressing(fractionCompleted: progress)
+            } else {
+                currentState = .indeterminate
+            }
         }
     }
     
@@ -50,7 +54,7 @@ class AlbumViewCell: UICollectionViewCell {
     // MARK: Private variables and types
     fileprivate enum State {
         case indeterminate
-        case progressing(fractionCompleted: Double)
+        case progressing(fractionCompleted: Float)
         case completed(withImage: UIImage)
     }
     

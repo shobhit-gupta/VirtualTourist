@@ -16,17 +16,15 @@ class DownloadPhoto: AsynchronousOperation {
     // MARK: Private variables and types
     fileprivate let photo: Photo
     fileprivate let managedObjectContext: NSManagedObjectContext
-    fileprivate let progressHandler: (_ progress: Double) -> Void
     fileprivate var numberOfTries = 0
     
     
-    init?(withId id: NSManagedObjectID, in context: NSManagedObjectContext, progressHandler: @escaping (_ progress: Double) -> Void) {
+    init?(withId id: NSManagedObjectID, in context: NSManagedObjectContext) {
         guard let photo = context.object(with: id) as? Photo else {
             return nil
         }
         managedObjectContext = context
         self.photo = photo
-        self.progressHandler = progressHandler
         super.init()
     }
     
@@ -40,6 +38,7 @@ class DownloadPhoto: AsynchronousOperation {
         DispatchQueue.main.async {
             print("URL for \(self.photo.objectID) is \(url)")
         }
+        photo.downloadInitiated = true
         downloadPhoto(from: url)
     }
     
@@ -59,7 +58,14 @@ fileprivate extension DownloadPhoto {
         
         Alamofire.request(url)
             .downloadProgress(queue: .main) { (progress) in
-                self.progressHandler(progress.fractionCompleted)
+                let fractionDone = Float(progress.fractionCompleted)
+                if fractionDone - self.photo.downloadedFraction > 0.1 {
+                    self.photo.downloadedFraction = fractionDone
+                    self.managedObjectContext.performAndWait {
+                        self.managedObjectContext.saveChanges()
+                    }
+                }
+                
             }
             .responseData { (response) in
                 switch response.result {
@@ -71,6 +77,8 @@ fileprivate extension DownloadPhoto {
                 case .success(let value):
                     // Store the downloaded image.
                     self.photo.image = value as NSData
+                    
+                    //self.photo.downloadedFraction = nil
                     
                     // Save private child context. Changes will be pushed to the main context.
                     try? self.managedObjectContext.save()

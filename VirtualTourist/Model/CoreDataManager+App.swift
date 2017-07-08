@@ -23,7 +23,7 @@ public extension CoreDataManager {
     
     
     internal func downloadPhoto(id photoId: NSManagedObjectID, withContext context: NSManagedObjectContext, inQueue queue: OperationQueue, progressHandler: @escaping (Double) -> Void) -> DownloadPhoto? {
-        guard let downloadPhotoOp = DownloadPhoto(withId: photoId, in: context, progressHandler: progressHandler) else {
+        guard let downloadPhotoOp = DownloadPhoto(withId: photoId, in: context) else {
             return nil
         }
         downloadPhotoOp.queuePriority = .normal
