@@ -172,7 +172,6 @@ fileprivate extension TravelLocationsMapViewController {
             let touchPoint = sender.location(in: mapView)
             let location = mapView.convert(touchPoint, toCoordinateFrom: mapView)
             addPin(for: location)
-            //getPhotoURLs(for: pin)
             
         default:
             break
@@ -184,13 +183,6 @@ fileprivate extension TravelLocationsMapViewController {
         let _ = Pin(location: location, insertInto: coreDataManager.mainManagedObjectContext)
     }
     
-    
-    func getPhotoURLs(for pin: Pin) {
-        let downloadMOC = coreDataManager.privateChildManagedObjectContext()
-        if let getPhotoURLsOp = GetPhotoURLsForPin(withId: pin.objectID, in: downloadMOC) {
-            downloadQueue.addOperation(getPhotoURLsOp)
-        }
-    }
     
 }
 
