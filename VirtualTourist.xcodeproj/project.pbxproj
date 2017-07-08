@@ -39,6 +39,7 @@
 		EEBB6F341EF90BA200561363 /* FileManager+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F331EF90BA200561363 /* FileManager+Ease.swift */; };
 		EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F351EF92DBA00561363 /* Default+App.swift */; };
 		EEBB6F381EFA1EA700561363 /* NSManagedContext+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */; };
+		EEE3ECA61F10FDF800409E16 /* M13ProgressSuite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE3ECA51F10FDF800409E16 /* M13ProgressSuite.framework */; };
 		EEF32FCC1F0DCD8F001E00E8 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF32FCB1F0DCD8F001E00E8 /* AsynchronousOperation.swift */; };
 		EEF32FD21F0EA617001E00E8 /* PinAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF32FD11F0EA617001E00E8 /* PinAnnotation.swift */; };
 		EEF32FD41F0F8941001E00E8 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF32FD31F0F8941001E00E8 /* AlbumViewController.swift */; };
@@ -100,6 +101,7 @@
 		EEBB6F331EF90BA200561363 /* FileManager+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Ease.swift"; sourceTree = "<group>"; };
 		EEBB6F351EF92DBA00561363 /* Default+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+App.swift"; sourceTree = "<group>"; };
 		EEBB6F371EFA1EA700561363 /* NSManagedContext+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedContext+Ease.swift"; sourceTree = "<group>"; };
+		EEE3ECA51F10FDF800409E16 /* M13ProgressSuite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = M13ProgressSuite.framework; path = Carthage/Build/iOS/M13ProgressSuite.framework; sourceTree = "<group>"; };
 		EEF32FCB1F0DCD8F001E00E8 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		EEF32FD11F0EA617001E00E8 /* PinAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinAnnotation.swift; sourceTree = "<group>"; };
 		EEF32FD31F0F8941001E00E8 /* AlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			files = (
 				EE79C4D51EEABA120016E915 /* Alamofire.framework in Frameworks */,
 				EE79C4D61EEABA120016E915 /* SwiftyJSON.framework in Frameworks */,
+				EEE3ECA61F10FDF800409E16 /* M13ProgressSuite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +138,7 @@
 		EE0BDB6C1E5AF1D600EAD974 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EEE3ECA51F10FDF800409E16 /* M13ProgressSuite.framework */,
 				EE79C4D31EEABA120016E915 /* Alamofire.framework */,
 				EE79C4D41EEABA120016E915 /* SwiftyJSON.framework */,
 			);
@@ -497,6 +501,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/M13ProgressSuite.framework",
 			);
 			outputPaths = (
 			);
