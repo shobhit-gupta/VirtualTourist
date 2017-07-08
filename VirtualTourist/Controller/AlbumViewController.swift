@@ -42,13 +42,13 @@ class AlbumViewController: UICollectionViewController {
     fileprivate lazy var processFetchedResultOps = [BlockOperation]()
     
     
+    // MARK: Standard callbacks
     deinit {
         processFetchedResultOps.forEach { $0.cancel() }
         processFetchedResultOps.removeAll()
     }
+
     
-    
-    // MARK: Standard callbacks
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDataSource()
@@ -92,6 +92,9 @@ fileprivate extension AlbumViewController {
 }
 
 
+//******************************************************************************
+//                                MARK: Operations
+//******************************************************************************
 fileprivate extension AlbumViewController {
     
     func getPhotoURLs() {
@@ -112,6 +115,9 @@ fileprivate extension AlbumViewController {
 }
 
 
+//******************************************************************************
+//                  MARK: Fetched Results Controller Delegate
+//******************************************************************************
 extension AlbumViewController: NSFetchedResultsControllerDelegate {
     
     private func addFetchedResultsOp(for processingBlock: @escaping () -> Void) {
@@ -158,7 +164,9 @@ extension AlbumViewController: NSFetchedResultsControllerDelegate {
 }
 
 
-// Data source
+//******************************************************************************
+//                         MARK: Collection View Data Source
+//******************************************************************************
 extension AlbumViewController {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -198,6 +206,19 @@ extension AlbumViewController {
 }
 
 
+//******************************************************************************
+//                          MARK: Collection View Delegate
+//******************************************************************************
+extension AlbumViewController {
+    
+    
+    
+}
+
+
+//******************************************************************************
+//                  MARK: Collection View Delegate Flow Layout
+//******************************************************************************
 extension AlbumViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -207,6 +228,9 @@ extension AlbumViewController: UICollectionViewDelegateFlowLayout {
 }
 
 
+//******************************************************************************
+//                      MARK: View Controller instantiation
+//******************************************************************************
 extension AlbumViewController {
     
     class func storyboardInstance() -> AlbumViewController? {
