@@ -247,6 +247,7 @@ extension AlbumViewController: NSFetchedResultsControllerDelegate {
             self.processFetchedResultOps.forEach({ $0.start() })
         }, completion: { (finished) in
             self.processFetchedResultOps.removeAll(keepingCapacity: false)
+            self.coreDataManager?.save()
         })
     }
     

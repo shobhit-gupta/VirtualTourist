@@ -34,7 +34,9 @@ class TravelLocationsMapViewController: UIViewController {
         return fetchedResultsController
     }()
     
+    // Pin that is dropped during the long press
     fileprivate var droppedPin: Pin?
+    
     
     // MARK: Standard callbacks
     override func viewDidLoad() {
@@ -157,6 +159,11 @@ fileprivate extension TravelLocationsMapViewController {
 //                  MARK: Fetched Results Controller Delegate
 //******************************************************************************
 extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        coreDataManager?.save()
+    }
+    
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         guard controller === fetchedPinsController else {
