@@ -349,7 +349,7 @@ extension AlbumViewController {
 
 
 //******************************************************************************
-//                  MARK: Collection View Delegate Flow Layout
+//                  MARK: Collection View Delegate / Flow Layout
 //******************************************************************************
 extension AlbumViewController: UICollectionViewDelegateFlowLayout {
     
@@ -423,6 +423,12 @@ extension AlbumViewController: UICollectionViewDelegateFlowLayout {
         let space = self.space
         return UIEdgeInsets(top: space, left: space, bottom: space, right: space)
     }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     
 }
 

@@ -44,7 +44,7 @@ open class AsynchronousOperation: Operation {
         case finished
     }
     
-    private let stateQueue = DispatchQueue(label: "com.from101.VirtualTourist.AsyncOp", attributes: .concurrent)
+    private let stateQueue = DispatchQueue(label: Default.DispatchQueue_.Label.AsynchronousOperation, attributes: .concurrent)
     
     private var _state = State.ready
     
@@ -53,9 +53,9 @@ open class AsynchronousOperation: Operation {
             return stateQueue.sync(execute: { _state })
         }
         set {
-            willChangeValue(forKey: "state")
+            willChangeValue(forKey: Default.AsynchronousOperation.KeyPath.State)
             stateQueue.sync(flags: .barrier, execute: { _state = newValue })
-            didChangeValue(forKey: "state")
+            didChangeValue(forKey: Default.AsynchronousOperation.KeyPath.State)
         }
     }
     
@@ -63,17 +63,17 @@ open class AsynchronousOperation: Operation {
     // MARK: KVO
     // Tell KVO that any change to state variable is implicitly a change to isReady, isExecuting and isFinished
     @objc private dynamic class func keyPathsForValuesAffectingIsReady() -> Set<String> {
-        return ["state"]
+        return [Default.AsynchronousOperation.KeyPath.State]
     }
     
     
     @objc private dynamic class func keyPathsForValuesAffectingIsExecuting() -> Set<String> {
-        return ["state"]
+        return [Default.AsynchronousOperation.KeyPath.State]
     }
     
     
     @objc private dynamic class func keyPathsForValuesAffectingIsFinished() -> Set<String> {
-        return ["state"]
+        return [Default.AsynchronousOperation.KeyPath.State]
     }
 
     
@@ -91,13 +91,49 @@ open class AsynchronousOperation: Operation {
     
     
     open func execute() {
-        fatalError("Subclass must implement execute method")
+        fatalError(Error_.AsynchronousOperation.ExecuteMethodNotImplemented.localizedDescription)
     }
     
     
     public final func finish() {
         // Call it on async task completion to mark the completion of the operation.
         state = .finished
+    }
+    
+}
+
+
+public extension Default.DispatchQueue_.Label {
+    static let AsynchronousOperation = Default.DispatchQueue_.Label.Main + "." + "AsyncOp"
+}
+
+
+public extension Default {
+    enum AsynchronousOperation {
+        enum KeyPath {
+            static let State = "state"
+        }
+    }
+}
+
+
+public extension Error_ {
+    
+    enum AsynchronousOperation: Error {
+        case ExecuteMethodNotImplemented
+        
+        var localizedDescription: String {
+            let description : String
+            switch self {
+                
+            case .ExecuteMethodNotImplemented:
+                description = "Subclass must implement execute method"
+                
+            }
+            
+            return description
+        }
+    
     }
     
 }
