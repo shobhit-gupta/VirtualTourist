@@ -47,6 +47,7 @@ public extension Error_ {
     
     enum General: Error {
         case DowncastMismatch(for: Any?, as: Any.Type)
+        case ReusableViewDequeFailed(identifier: String, viewType: UIView.Type)
         case UnexpectedSegue(identifier: String?)
         case UnexpectedSegueDestination(identifier: String?, destination: UIViewController.Type, expected: UIViewController.Type)
         case UnexpectedSegueSender(identifier: String?, sender: Any.Type, expected: Any.Type)
@@ -63,6 +64,9 @@ public extension Error_ {
             switch self {
             case let .DowncastMismatch(object, type):
                 description = "\(String(describing: object)) couldn't be downcasted as \(type)"
+                
+            case let .ReusableViewDequeFailed(identifier, viewType):
+                description = "Failed to deque reusable view of type: \(viewType) with reuse id: \(identifier)"
                 
             case .UnexpectedSegue(let identifier):
                 description = "Unexpected Segue Identifier Encounterd: \(String(describing: identifier))"

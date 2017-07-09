@@ -81,7 +81,8 @@ public final class CoreDataManager {
     
     
     fileprivate lazy var managedObjectModel: NSManagedObjectModel = {
-        guard let modelURL = Bundle.main.url(forResource: self.modelName, withExtension: "momd") else {
+        guard let modelURL = Bundle.main.url(forResource: self.modelName,
+                                             withExtension: Default.CoreData.ManagedObjectModel.DocumentFileExtension) else {
             fatalError(Error_.CoreData.DataModelMissing(modelName: self.modelName).localizedDescription)
         }
         guard let mom = NSManagedObjectModel(contentsOf: modelURL) else {
@@ -106,7 +107,6 @@ public final class CoreDataManager {
     
     
 }
-
 
 
 public extension CoreDataManager {
@@ -159,22 +159,22 @@ public extension CoreDataManager {
     private func addPersistentStore() {
         // Create sqlite persistent store
         guard let url = try? FileManager.default.createPathForFile(self.modelName,
-                                                                   withExtension: "sqlite",
-                                                                   relativeTo: .documentDirectory,
-                                                                   at: "CoreData") else {
-            fatalError("Couldn't create persistent store file")
+                                                                   withExtension: Default.CoreData.PersistentStore.FileExtension,
+                                                                   relativeTo: Default.CoreData.PersistentStore.SearchPathDirectory,
+                                                                   at: Default.CoreData.PersistentStore.Subdirectory) else {
+            fatalError(Error_.CoreData.PersistentStoreCreationFailed.localizedDescription)
         }
         
-        let options = [NSMigratePersistentStoresAutomaticallyOption : true,
-                       NSInferMappingModelAutomaticallyOption : true]
+        let options = [NSMigratePersistentStoresAutomaticallyOption : Default.CoreData.PersistentStore.Coordinator.ShouldAutomaticallyMigrate,
+                       NSInferMappingModelAutomaticallyOption : Default.CoreData.PersistentStore.Coordinator.ShouldAutomaticallyInferMappingModel]
         
         do {
-            try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType,
+            try persistentStoreCoordinator.addPersistentStore(ofType: Default.CoreData.PersistentStore.Kind,
                                                               configurationName: nil,
                                                               at: url,
                                                               options: options)
         } catch {
-            fatalError("Unable to load persistent store")
+            fatalError(Error_.CoreData.PersistentStoreLoadingFailed.localizedDescription)
         }
         
     }
@@ -183,12 +183,36 @@ public extension CoreDataManager {
 }
 
 
+public extension Default {
+    
+    enum CoreData {
+        enum ManagedObjectModel {
+            static let DocumentFileExtension = "momd"
+        }
+        
+        enum PersistentStore {
+            static let FileExtension = "sqlite"
+            static let SearchPathDirectory: FileManager.SearchPathDirectory = .documentDirectory
+            static let Subdirectory = "CoreData"
+            static let Kind = NSSQLiteStoreType
+            
+            enum Coordinator {
+                static let ShouldAutomaticallyMigrate = true
+                static let ShouldAutomaticallyInferMappingModel = true
+            }
+        }
+    }
+    
+}
+
 
 public extension Error_ {
 
     enum CoreData: Error {
         case DataModelMissing(modelName: String)
         case CorruptDataModel(modelName: String)
+        case PersistentStoreCreationFailed
+        case PersistentStoreLoadingFailed
         
         var localizedDescription: String {
             let description : String
@@ -199,6 +223,12 @@ public extension Error_ {
                 
             case .CorruptDataModel(let modelName):
                 description = "Couldn't load data model from \(modelName).xcdatamodeld"
+                
+            case .PersistentStoreCreationFailed:
+                description = "Couldn't create persistent store file"
+                
+            case .PersistentStoreLoadingFailed:
+                description = "Unable to load persistent store"
                 
             }
             

@@ -9,19 +9,34 @@
 import Foundation
 import CoreData
 import CoreLocation
+import MapKit
 
 
 public extension Pin {
-
-    convenience init(latitude: CLLocationDegrees, longitude: CLLocationDegrees, insertInto context: NSManagedObjectContext) {
-        guard let entityDescription = NSEntityDescription.entity(forEntityName: "Pin", in: context) else {
-            fatalError("Unable to find entity name: Pin")
+    
+    public var location: CLLocationCoordinate2D {
+        get {
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
-        self.init(entity: entityDescription, insertInto: context)
-        // TODO: Try this instead
-        // self.init(entity: Pin.entity(), insertInto: context)
-        self.latitude = latitude
-        self.longitude = longitude
+        set {
+            willChangeValue(forKey: Default.Pin.KeyPath.Location)
+            latitude = newValue.latitude
+            longitude = newValue.longitude
+            didChangeValue(forKey: Default.Pin.KeyPath.Location)
+        }
     }
+    
+
+    convenience init(location: CLLocationCoordinate2D, insertInto context: NSManagedObjectContext) {
+        self.init(entity: Pin.entity(), insertInto: context)
+        self.latitude = location.latitude
+        self.longitude = location.longitude
+    }
+    
+    
+    public func createAnnotation() -> PinAnnotation {
+        return PinAnnotation(pin: self)
+    }
+    
 
 }

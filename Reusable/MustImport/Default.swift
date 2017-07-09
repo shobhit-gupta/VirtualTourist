@@ -18,10 +18,18 @@ public enum Default {
 
 
 public extension Default {
-    enum Audio {}
-    enum FileManager_ {}
-    enum Map {}
-    enum UIImage_ {}
-    enum UIView_ {}
-    enum URL_ {}
+    public enum Audio {}
+    public enum DispatchQueue_ {
+        public enum Label {}
+    }
+    public enum FileManager_ {}
+    public enum Map {}
+    public enum UIImage_ {}
+    public enum UIView_ {}
+    public enum URL_ {}
+}
+
+
+public extension Default.DispatchQueue_.Label {
+    static let Main = Bundle.main.bundleIdentifier ?? "com.from101"
 }

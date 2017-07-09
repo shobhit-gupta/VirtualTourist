@@ -147,9 +147,15 @@ public extension Flickr {
 
 
 public extension Flickr {
+    
+    public struct PhotoInfo {
+        let url: URL
+        let height: Float?
+        let width: Float?
+    }
 
-    public static func getPhotoURLs(from json: JSON) -> [URL] {
-        var urls = [URL]()
+    public static func getPhotosInfo(from json: JSON) -> [PhotoInfo] {
+        var info = [PhotoInfo]()
         
         // Parse JSON response: Example of expected JSON response from Flickr:
         // Case 1: Everything goes well.
@@ -185,12 +191,14 @@ public extension Flickr {
         if let photos = json[Default.FlickrAPI.Response.Key.Photos][Default.FlickrAPI.Response.Key.Photo].array {
             for photo in photos {
                 if let url = photo[Default.FlickrAPI.Response.Key.MediumURL].url {
-                    urls.append(url)
+                    let height = photo[Default.FlickrAPI.Response.Key.Height].string ?? ""
+                    let width = photo[Default.FlickrAPI.Response.Key.Width].string ?? ""
+                    info.append(PhotoInfo(url: url, height: Float(height), width: Float(width)))
                 }
             }
             
         }
-        return urls
+        return info
     }
     
     

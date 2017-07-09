@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Photo" representedClassName="Photo" syncable="YES" codeGenerationType="class">
+        <attribute name="aspectRatio" attributeType="Float" minValueString="0" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="downloadedFraction" transient="YES" attributeType="Float" minValueString="0" maxValueString="1" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="downloadInitiated" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="downloadQueued" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="url" attributeType="String" regularExpressionString="(http(s?):[\/]{2}\w)([\/|.|\w|\s])*\.(jpe?g|png)" syncable="YES"/>
         <relationship name="pin" maxCount="1" deletionRule="Nullify" destinationEntity="Pin" inverseName="photos" inverseEntity="Pin" syncable="YES"/>
@@ -11,7 +15,7 @@
         <relationship name="photos" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="pin" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="-54" positionY="-9" width="128" height="90"/>
+        <element name="Photo" positionX="-54" positionY="-9" width="128" height="150"/>
         <element name="Pin" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>

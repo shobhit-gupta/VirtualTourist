@@ -32,15 +32,8 @@ class RootViewController: UIViewController {
     
     // MARK: Child View Controllers
     // IMPORTANT: Do not forget to add these as child view controller with addChild(_:) method
-    public private(set) lazy var travelLocationsMapVC: TravelLocationsMapViewController = self.instantiateViewController(identifier: "TravelLocationsMapViewController", classType: TravelLocationsMapViewController.self)
+    public private(set) lazy var travelLocationsMapVC: TravelLocationsMapViewController! = TravelLocationsMapViewController.storyboardInstance()
     
-    
-    private func instantiateViewController<T: UIViewController>(identifier: String, classType: T.Type) -> T {
-        let storyboard = UIStoryboard(name: Default.FileName.MainStoryboard, bundle: Bundle.main)
-        let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! T
-        return viewController
-    }
-
     
     // MARK: State variables for saving on disk
     fileprivate var saveOnDiskTimer: DispatchSourceTimer?
@@ -84,12 +77,13 @@ fileprivate extension RootViewController {
     func setup() {
         setupDownloadQueue()
         setupCoreData()
+        subscribeToNotifications()
     }
     
     
     private func setupDownloadQueue() {
         downloadQueue = OperationQueue()
-        downloadQueue?.maxConcurrentOperationCount = 3
+        downloadQueue?.maxConcurrentOperationCount = Default.DownloadQueue.MaxConcurrentOperations
         addObserver(self, forKeyPath: #keyPath(downloadQueue.operationCount), options: [.new], context: nil)
     }
     
@@ -129,6 +123,14 @@ fileprivate extension RootViewController {
     // Leave blank if not required
     private func updateView() {
         
+    }
+    
+    
+    private func subscribeToNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(applicationDidEnterBackground(_:)),
+                                               name: .UIApplicationDidEnterBackground,
+                                               object: nil)
     }
     
 }
@@ -175,14 +177,17 @@ fileprivate extension RootViewController {
         stopPeriodicallySavingOnDisk()
         
         // Set a periodical timer in a separate queue
-        let timerQueue = DispatchQueue(label: "com.from101.VirtualTourist.saveOnDiskTimer", qos: .utility, attributes: .concurrent)
+        let timerQueue = DispatchQueue(label: Default.DispatchQueue_.Label.SaveOnDiskTimerQueue,
+                                       qos: .utility,
+                                       attributes: .concurrent)
         saveOnDiskTimer = DispatchSource.makeTimerSource(queue: timerQueue)
-        saveOnDiskTimer?.scheduleRepeating(deadline: .now(), interval: .seconds(3), leeway: .seconds(1))
+        saveOnDiskTimer?.scheduleRepeating(deadline: .now(),
+                                           interval: Default.SaveOnDiskTimer.Interval,
+                                           leeway: Default.SaveOnDiskTimer.Leeway)
         
         // Save on disk
         saveOnDiskTimer?.setEventHandler(handler: { [weak self] in
             guard let s = self else { return }
-            s.printOnMain("---> Timer called @ \(Date()) ")
             s.coreDataManager?.save()
             if s.shouldStopSavingOnDisk {
                 s.stopPeriodicallySavingOnDisk()
@@ -191,7 +196,6 @@ fileprivate extension RootViewController {
         
         // Start the periodical timer
         saveOnDiskTimer?.resume()
-        printOnMain("===> Timer initiated")
         
     }
     
@@ -200,7 +204,11 @@ fileprivate extension RootViewController {
         saveOnDiskTimer?.cancel()
         saveOnDiskTimer = nil
         shouldStopSavingOnDisk = false
-        printOnMain("===> Timer Stopped")
+    }
+    
+    
+    @objc func applicationDidEnterBackground(_ notification: Notification) {
+        coreDataManager?.save()
     }
     
     
@@ -211,3 +219,6 @@ fileprivate extension RootViewController {
     }
     
 }
+
+
+

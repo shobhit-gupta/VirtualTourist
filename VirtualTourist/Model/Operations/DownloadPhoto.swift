@@ -16,17 +16,15 @@ class DownloadPhoto: AsynchronousOperation {
     // MARK: Private variables and types
     fileprivate let photo: Photo
     fileprivate let managedObjectContext: NSManagedObjectContext
-    fileprivate let progressHandler: (_ progress: Double) -> Void
     fileprivate var numberOfTries = 0
     
     
-    init?(withId id: NSManagedObjectID, in context: NSManagedObjectContext, progressHandler: @escaping (_ progress: Double) -> Void) {
+    init?(withId id: NSManagedObjectID, in context: NSManagedObjectContext) {
         guard let photo = context.object(with: id) as? Photo else {
             return nil
         }
         managedObjectContext = context
         self.photo = photo
-        self.progressHandler = progressHandler
         super.init()
     }
     
@@ -37,9 +35,6 @@ class DownloadPhoto: AsynchronousOperation {
             print("Photo url not found")
             return
         }
-        DispatchQueue.main.async {
-            print("URL for \(self.photo.objectID) is \(url)")
-        }
         downloadPhoto(from: url)
     }
     
@@ -49,8 +44,12 @@ class DownloadPhoto: AsynchronousOperation {
 fileprivate extension DownloadPhoto {
 
     func downloadPhoto(from url: URL) {
-        guard numberOfTries < 4 else {
-            print("Max retries reached")
+        guard !self.isCancelled else {
+            self.finish()
+            return
+        }
+        
+        guard numberOfTries < Default.AsynchronousOperation.DownloadPhoto.MaxRetries else {
             finish()
             return
         }
@@ -59,9 +58,33 @@ fileprivate extension DownloadPhoto {
         
         Alamofire.request(url)
             .downloadProgress(queue: .main) { (progress) in
-                self.progressHandler(progress.fractionCompleted)
+                guard !self.isCancelled else {
+                    self.finish()
+                    return
+                }
+                
+                if self.photo.downloadInitiated == false {
+                    self.photo.downloadInitiated = true
+                    self.managedObjectContext.performAndWait {
+                        self.managedObjectContext.saveChanges()
+                    }
+                }
+                
+                let fractionDone = Float(progress.fractionCompleted)
+                if fractionDone - self.photo.downloadedFraction > Default.AsynchronousOperation.DownloadPhoto.DownloadFractionUpdateStep {
+                    self.photo.downloadedFraction = fractionDone
+                    self.managedObjectContext.performAndWait {
+                        self.managedObjectContext.saveChanges()
+                    }
+                }
+                
             }
             .responseData { (response) in
+                guard !self.isCancelled else {
+                    self.finish()
+                    return
+                }
+
                 switch response.result {
                 
                 case .failure(let error):
@@ -71,9 +94,9 @@ fileprivate extension DownloadPhoto {
                 case .success(let value):
                     // Store the downloaded image.
                     self.photo.image = value as NSData
+                    self.photo.verifyAspectRatio()
                     
                     // Save private child context. Changes will be pushed to the main context.
-                    try? self.managedObjectContext.save()
                     self.managedObjectContext.performAndWait {
                         self.managedObjectContext.saveChanges()
                     }

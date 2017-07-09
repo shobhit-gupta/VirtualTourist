@@ -1,2 +1,3 @@
-github "Alamofire/Alamofire" "4.4.0"
+github "Alamofire/Alamofire" "4.5.0"
+github "Marxon13/M13ProgressSuite" "v1.2.9"
 github "SwiftyJSON/SwiftyJSON" "3.1.4"
