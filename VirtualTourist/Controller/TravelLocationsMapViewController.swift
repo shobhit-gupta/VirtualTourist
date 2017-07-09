@@ -40,9 +40,14 @@ class TravelLocationsMapViewController: UIViewController {
         super.viewDidLoad()
         setupDataSource()
         setupUI()
-        printStat(self)
+        //printStat(self)
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
     
     func printOnMain(_ str: String) {
         DispatchQueue.main.async {
@@ -51,19 +56,19 @@ class TravelLocationsMapViewController: UIViewController {
     }
     
 
-    func printStat(_ sender: Any) {
-        let photofetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
-        let pinFetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-        
-        do {
-            let numPhotos = try coreDataManager.mainManagedObjectContext.count(for: photofetchRequest)
-            let numPins = try coreDataManager.mainManagedObjectContext.count(for: pinFetchRequest)
-            printOnMain("Context: \(coreDataManager.mainManagedObjectContext) Num photos: \(numPhotos) Num pins: \(numPins)")
-        } catch {
-            
-        }
-        
-    }
+//    func printStat(_ sender: Any) {
+//        let photofetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+//        let pinFetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+//        
+//        do {
+//            let numPhotos = try coreDataManager.mainManagedObjectContext.count(for: photofetchRequest)
+//            let numPins = try coreDataManager.mainManagedObjectContext.count(for: pinFetchRequest)
+//            printOnMain("Context: \(coreDataManager.mainManagedObjectContext) Num photos: \(numPhotos) Num pins: \(numPins)")
+//        } catch {
+//            
+//        }
+//        
+//    }
 
 }
 

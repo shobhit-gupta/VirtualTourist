@@ -16,6 +16,9 @@
 		EE178CA21E5AA074001A433A /* VirtualTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178CA11E5AA074001A433A /* VirtualTouristTests.swift */; };
 		EE178CAD1E5AA075001A433A /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE178CAC1E5AA075001A433A /* VirtualTouristUITests.swift */; };
 		EE1B59FB1F09FA2F00A8E473 /* DownloadPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1B59FA1F09FA2F00A8E473 /* DownloadPhoto.swift */; };
+		EE1BF6781F11F3F50067371F /* ArtKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1BF6771F11F3F50067371F /* ArtKit.swift */; };
+		EE1BF67B1F11F47F0067371F /* ArtKit+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1BF6791F11F47F0067371F /* ArtKit+Appearance.swift */; };
+		EE1BF67C1F11F47F0067371F /* Default+Artkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1BF67A1F11F47F0067371F /* Default+Artkit.swift */; };
 		EE3F72F91EF688BB00AD3969 /* Error_+Flickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F72F81EF688BB00AD3969 /* Error_+Flickr.swift */; };
 		EE3F730B1EF6AC0200AD3969 /* Dictionary+Ease.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F72FF1EF6AC0200AD3969 /* Dictionary+Ease.swift */; };
 		EE3F731F1EF75DF600AD3969 /* Basic+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3F73151EF75DF500AD3969 /* Basic+Random.swift */; };
@@ -78,6 +81,9 @@
 		EE178CAC1E5AA075001A433A /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
 		EE178CAE1E5AA075001A433A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE1B59FA1F09FA2F00A8E473 /* DownloadPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPhoto.swift; sourceTree = "<group>"; };
+		EE1BF6771F11F3F50067371F /* ArtKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtKit.swift; sourceTree = "<group>"; };
+		EE1BF6791F11F47F0067371F /* ArtKit+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ArtKit+Appearance.swift"; sourceTree = "<group>"; };
+		EE1BF67A1F11F47F0067371F /* Default+Artkit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Default+Artkit.swift"; sourceTree = "<group>"; };
 		EE38767E1F110968002D8CB9 /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
 		EE3F72F81EF688BB00AD3969 /* Error_+Flickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error_+Flickr.swift"; sourceTree = "<group>"; };
 		EE3F72FF1EF6AC0200AD3969 /* Dictionary+Ease.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ease.swift"; sourceTree = "<group>"; };
@@ -280,6 +286,9 @@
 		EE79C4DB1EEBAFA90016E915 /* Artkit */ = {
 			isa = PBXGroup;
 			children = (
+				EE1BF67A1F11F47F0067371F /* Default+Artkit.swift */,
+				EE1BF6771F11F3F50067371F /* ArtKit.swift */,
+				EE1BF6791F11F47F0067371F /* ArtKit+Appearance.swift */,
 			);
 			path = Artkit;
 			sourceTree = "<group>";
@@ -519,16 +528,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE79C4E71EEBB2A00016E915 /* Default.swift in Sources */,
-				EE3F73231EF75DF600AD3969 /* Error_+Random.swift in Sources */,
-				EE053DE21F02068C0040FA6F /* RootViewController.swift in Sources */,
 				EE79C4E81EEBB2A00016E915 /* Error_.swift in Sources */,
+				EE3F73231EF75DF600AD3969 /* Error_+Random.swift in Sources */,
 				EE3F73221EF75DF600AD3969 /* Default+Random.swift in Sources */,
+				EE1BF67C1F11F47F0067371F /* Default+Artkit.swift in Sources */,
+				EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */,
+				EE053DE21F02068C0040FA6F /* RootViewController.swift in Sources */,
 				EEBB6F341EF90BA200561363 /* FileManager+Ease.swift in Sources */,
 				EE8DF0331F10D667008084BE /* CoreDataManager+App.swift in Sources */,
 				EEF32FD41F0F8941001E00E8 /* AlbumViewController.swift in Sources */,
 				EE79C4E51EEBB2A00016E915 /* Default+Flickr.swift in Sources */,
-				EEB6DA401F07645400E83612 /* Photo+Ease.swift in Sources */,
 				EE3F72F91EF688BB00AD3969 /* Error_+Flickr.swift in Sources */,
+				EEB6DA401F07645400E83612 /* Photo+Ease.swift in Sources */,
+				EE1BF6781F11F3F50067371F /* ArtKit.swift in Sources */,
 				EEB6DA3A1F056C0D00E83612 /* GetPhotoURLsForPin.swift in Sources */,
 				EE3F731F1EF75DF600AD3969 /* Basic+Random.swift in Sources */,
 				EEF32FCC1F0DCD8F001E00E8 /* AsynchronousOperation.swift in Sources */,
@@ -542,9 +554,9 @@
 				EEF32FD21F0EA617001E00E8 /* PinAnnotation.swift in Sources */,
 				EEBB6F381EFA1EA700561363 /* NSManagedContext+Ease.swift in Sources */,
 				EE178C8F1E5AA074001A433A /* TravelLocationsMapViewController.swift in Sources */,
-				EEBB6F361EF92DBA00561363 /* Default+App.swift in Sources */,
 				EE3F732A1EF7AC0700AD3969 /* Model.xcdatamodeld in Sources */,
 				EE1B59FB1F09FA2F00A8E473 /* DownloadPhoto.swift in Sources */,
+				EE1BF67B1F11F47F0067371F /* ArtKit+Appearance.swift in Sources */,
 				EE178C8D1E5AA074001A433A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

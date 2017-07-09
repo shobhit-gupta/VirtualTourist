@@ -49,7 +49,7 @@ class GetPhotoURLsForPin: AsynchronousOperation {
                 self.pin.addToPhotos(photo)
             }
             
-            self.printOnMain("Photo URLs \(self.pin.photos?.count ?? 0) fetch completed for pin: \(self.pin.objectID)")
+//            self.printOnMain("Photo URLs \(self.pin.photos?.count ?? 0) fetch completed for pin: \(self.pin.objectID)")
             
             defer {
                 // Save private child context. Changes will be pushed to the main context.

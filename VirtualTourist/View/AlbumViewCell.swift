@@ -107,7 +107,8 @@ extension AlbumViewCell {
     
     
     fileprivate func setupProgressView() {
-        
+        progressView.primaryColor = ArtKit.highlightOfPrimaryColor
+        progressView.secondaryColor = ArtKit.shadowOfSecondaryColor
     }
     
     
@@ -116,6 +117,7 @@ extension AlbumViewCell {
         case .indeterminate:
             imageView.image = nil
             progressView.isHidden = false
+            progressView.setProgress(0.0, animated: false)
             progressView.indeterminate = true
             progressView.showPercentage = false
             

@@ -38,7 +38,7 @@ public extension Default {
             
             enum Border {
                 static let Width: CGFloat = 2.0
-                static let Color: UIColor = UIColor.purple //ArtKit.primaryColor
+                static let Color: UIColor = ArtKit.primaryColor
             }
             
             enum Overlay {
@@ -50,7 +50,7 @@ public extension Default {
         
         enum Unselected {
             enum Border {
-                static let Width: CGFloat = 0.5
+                static let Width: CGFloat = 0.0
             }
         }
         

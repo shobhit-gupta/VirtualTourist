@@ -107,6 +107,7 @@ class AlbumViewController: UICollectionViewController {
     // the user is currently viewing, downloads it's requested photos at higher
     // priority.
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
         downloadPhotoOperations.forEach {
             if !$0.isFinished {
                 $0.queuePriority = .normal
@@ -188,7 +189,6 @@ fileprivate extension AlbumViewController {
         if shouldGetPhotoURLs || downloadPhotoOperations.count > 0 {
             refreshButton.isEnabled = false
         }
-        print("Num Photos: \(fetchedPhotosController.fetchedObjects?.count ?? 0)")
     }
     
     
