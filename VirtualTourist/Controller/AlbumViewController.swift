@@ -45,8 +45,8 @@ class AlbumViewController: UICollectionViewController {
     
     fileprivate lazy var fetchedPhotosController: NSFetchedResultsController<Photo> = {
         let photoFetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
-        photoFetchRequest.sortDescriptors = [NSSortDescriptor(key: "url", ascending: true)]
-        photoFetchRequest.predicate = NSPredicate(format: "pin = %@", self.pin)
+        photoFetchRequest.sortDescriptors = [NSSortDescriptor(key: Default.Photo.KeyPath.Url, ascending: true)]
+        photoFetchRequest.predicate = NSPredicate(format: "\(Default.Photo.KeyPath.Pin) = %@", self.pin)
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: photoFetchRequest,
                                                                   managedObjectContext: self.coreDataManager.mainManagedObjectContext,
                                                                   sectionNameKeyPath: nil,
@@ -110,7 +110,7 @@ class AlbumViewController: UICollectionViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         downloadPhotoOperations.forEach {
             if !$0.isFinished {
-                $0.queuePriority = .normal
+                $0.queuePriority = Default.AsynchronousOperation.DownloadPhoto.QueuePriority
             }
         }
         collectionView?.reloadData()
@@ -120,7 +120,7 @@ class AlbumViewController: UICollectionViewController {
     override func viewWillDisappear(_ animated: Bool) {
         downloadPhotoOperations.forEach {
             if !$0.isFinished {
-                $0.queuePriority = .low
+                $0.queuePriority = Default.AsynchronousOperation.DownloadPhoto.QueuePriorityInBackground
             }
         }
     }
@@ -206,7 +206,7 @@ fileprivate extension AlbumViewController {
                 DispatchQueue.main.async { [weak self] in
                     guard let s = self else { return }
                     if let photos = s.pin.photos, photos.count == 0 {
-                        s.navigationItem.prompt = "0 photos found"
+                        s.navigationItem.prompt = Default.AsynchronousOperation.GetPhotoURLsForPin.NoURLsFoundMessage
                     }
                 }
             }
@@ -304,8 +304,11 @@ extension AlbumViewController: NSFetchedResultsControllerDelegate {
 extension AlbumViewController {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AlbumViewMapHeader", for: indexPath) as? HeaderCollectionReusableView else {
-                fatalError()
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                               withReuseIdentifier: Default.GridView.Header.ReuseId,
+                                                                               for: indexPath) as? HeaderCollectionReusableView else {
+                fatalError(Error_.General.ReusableViewDequeFailed(identifier: Default.GridView.Header.ReuseId,
+                                                                  viewType: HeaderCollectionReusableView.self).localizedDescription)
         }
         headerView.showCoordinate(pin.location)
         headerView.mapView.addAnnotation(pin.createAnnotation())
@@ -319,8 +322,10 @@ extension AlbumViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumViewCell", for: indexPath) as? AlbumViewCell else {
-            fatalError()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Default.GridViewCell.ReuseId,
+                                                            for: indexPath) as? AlbumViewCell else {
+            fatalError(Error_.General.ReusableViewDequeFailed(identifier: Default.GridViewCell.ReuseId,
+                                                              viewType: AlbumViewCell.self).localizedDescription)
         }
         configure(cell, at: indexPath)
         return cell
@@ -369,7 +374,7 @@ extension AlbumViewController: UICollectionViewDelegateFlowLayout {
 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 100.0)
+        return CGSize(width: collectionView.bounds.width, height: Default.GridView.Header.Height)
     }
     
     
@@ -440,7 +445,7 @@ extension AlbumViewController {
     
     class func storyboardInstance() -> AlbumViewController? {
         let storyboard = UIStoryboard(name: Default.FileName.MainStoryboard, bundle: Bundle.main)
-        return storyboard.instantiateViewController(withIdentifier: "AlbumViewController") as? AlbumViewController
+        return storyboard.instantiateViewController(withIdentifier: Default.StoryboardId.AlbumVC) as? AlbumViewController
     }
     
 }

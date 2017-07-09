@@ -49,8 +49,7 @@ fileprivate extension DownloadPhoto {
             return
         }
         
-        guard numberOfTries < 4 else {
-            print("Max retries reached")
+        guard numberOfTries < Default.AsynchronousOperation.DownloadPhoto.MaxRetries else {
             finish()
             return
         }
@@ -72,7 +71,7 @@ fileprivate extension DownloadPhoto {
                 }
                 
                 let fractionDone = Float(progress.fractionCompleted)
-                if fractionDone - self.photo.downloadedFraction > 0.1 {
+                if fractionDone - self.photo.downloadedFraction > Default.AsynchronousOperation.DownloadPhoto.DownloadFractionUpdateStep {
                     self.photo.downloadedFraction = fractionDone
                     self.managedObjectContext.performAndWait {
                         self.managedObjectContext.saveChanges()

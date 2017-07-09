@@ -25,7 +25,7 @@ class TravelLocationsMapViewController: UIViewController {
     // MARK: Private variables and types
     fileprivate lazy var fetchedPinsController: NSFetchedResultsController<Pin> = {
         let pinFetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-        pinFetchRequest.sortDescriptors = [NSSortDescriptor(key: "latitude", ascending: true)]
+        pinFetchRequest.sortDescriptors = [NSSortDescriptor(key: Default.Pin.KeyPath.Latitude, ascending: true)]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: pinFetchRequest,
                                                                   managedObjectContext: self.coreDataManager.mainManagedObjectContext,
                                                                   sectionNameKeyPath: nil,
@@ -37,6 +37,7 @@ class TravelLocationsMapViewController: UIViewController {
     // Pin that is dropped during the long press
     fileprivate var droppedPin: Pin?
     
+    fileprivate var shouldAnimatePinDrop = false
     
     // MARK: Standard callbacks
     override func viewDidLoad() {
@@ -51,6 +52,7 @@ class TravelLocationsMapViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
+    
     
     func printOnMain(_ str: String) {
         DispatchQueue.main.async {
@@ -112,7 +114,8 @@ fileprivate extension TravelLocationsMapViewController {
     // Add a longPressGesture to mapView
     private func addLongPressGesture() {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(mapViewLongPressed(sender:)))
-        longPress.numberOfTapsRequired = 1
+        longPress.numberOfTapsRequired = Default.LongPress.NumberOfTapsRequired
+        longPress.minimumPressDuration = Default.LongPress.MinimumPressDuration
         mapView.addGestureRecognizer(longPress)
     }
     
@@ -147,7 +150,9 @@ fileprivate extension TravelLocationsMapViewController {
         return mapView.convert(touchPoint, toCoordinateFrom: mapView)
     }
     
+    
     private func addPin(for location: CLLocationCoordinate2D, in context: NSManagedObjectContext) -> Pin {
+        shouldAnimatePinDrop = true
         return Pin(location: location, insertInto: context)
     }
     
@@ -193,8 +198,11 @@ extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {
             
         default:
             break
+     
         }
+        
     }
+    
 
 }
 
@@ -206,7 +214,7 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
-        annotationView.animatesDrop = true
+        annotationView.animatesDrop = shouldAnimatePinDrop
         return annotationView
     }
     
@@ -254,7 +262,7 @@ extension TravelLocationsMapViewController {
     
     public class func storyboardInstance() -> TravelLocationsMapViewController? {
         let storyboard = UIStoryboard(name: Default.FileName.MainStoryboard, bundle: Bundle.main)
-        return storyboard.instantiateViewController(withIdentifier: "TravelLocationsMapViewController") as? TravelLocationsMapViewController
+        return storyboard.instantiateViewController(withIdentifier: Default.StoryboardId.TravelLocationsMapViewVC) as? TravelLocationsMapViewController
     }
     
 }

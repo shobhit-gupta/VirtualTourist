@@ -16,7 +16,7 @@ public extension CoreDataManager {
         guard let getPhotoURLsOp = GetPhotoURLsForPin(withId: pinId, in: context) else {
             return nil
         }
-        getPhotoURLsOp.queuePriority = .veryHigh
+        getPhotoURLsOp.queuePriority = Default.AsynchronousOperation.GetPhotoURLsForPin.QueuePriority
         queue.addOperation(getPhotoURLsOp)
         return getPhotoURLsOp
     }
@@ -26,7 +26,7 @@ public extension CoreDataManager {
         guard let downloadPhotoOp = DownloadPhoto(withId: photoId, in: context) else {
             return nil
         }
-        downloadPhotoOp.queuePriority = .normal
+        downloadPhotoOp.queuePriority = Default.AsynchronousOperation.DownloadPhoto.QueuePriority
         queue.addOperation(downloadPhotoOp)
         return downloadPhotoOp
     }

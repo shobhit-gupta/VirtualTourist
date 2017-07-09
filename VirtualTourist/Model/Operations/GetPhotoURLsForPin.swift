@@ -33,7 +33,7 @@ class GetPhotoURLsForPin: AsynchronousOperation {
         Flickr.randomSearch(latitude: pin.latitude, longitude: pin.longitude) { (success, json, error) in
             guard success, error == nil, let json = json else {
                 if let error = error {
-                    print(error.localizedDescription)
+                    self.printOnMain(error.localizedDescription)
                 }
                 return
             }

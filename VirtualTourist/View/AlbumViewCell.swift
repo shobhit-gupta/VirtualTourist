@@ -107,8 +107,8 @@ extension AlbumViewCell {
     
     
     fileprivate func setupProgressView() {
-        progressView.primaryColor = ArtKit.highlightOfPrimaryColor
-        progressView.secondaryColor = ArtKit.shadowOfSecondaryColor
+        progressView.primaryColor = Default.ProgressView.Color.Primary
+        progressView.secondaryColor = Default.ProgressView.Color.Secondary
     }
     
     

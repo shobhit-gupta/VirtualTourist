@@ -83,7 +83,7 @@ fileprivate extension RootViewController {
     
     private func setupDownloadQueue() {
         downloadQueue = OperationQueue()
-        downloadQueue?.maxConcurrentOperationCount = 3
+        downloadQueue?.maxConcurrentOperationCount = Default.DownloadQueue.MaxConcurrentOperations
         addObserver(self, forKeyPath: #keyPath(downloadQueue.operationCount), options: [.new], context: nil)
     }
     
@@ -177,9 +177,13 @@ fileprivate extension RootViewController {
         stopPeriodicallySavingOnDisk()
         
         // Set a periodical timer in a separate queue
-        let timerQueue = DispatchQueue(label: "com.from101.VirtualTourist.saveOnDiskTimer", qos: .utility, attributes: .concurrent)
+        let timerQueue = DispatchQueue(label: Default.DispatchQueue_.Label.SaveOnDiskTimerQueue,
+                                       qos: .utility,
+                                       attributes: .concurrent)
         saveOnDiskTimer = DispatchSource.makeTimerSource(queue: timerQueue)
-        saveOnDiskTimer?.scheduleRepeating(deadline: .now(), interval: .seconds(3), leeway: .seconds(1))
+        saveOnDiskTimer?.scheduleRepeating(deadline: .now(),
+                                           interval: Default.SaveOnDiskTimer.Interval,
+                                           leeway: Default.SaveOnDiskTimer.Leeway)
         
         // Save on disk
         saveOnDiskTimer?.setEventHandler(handler: { [weak self] in
