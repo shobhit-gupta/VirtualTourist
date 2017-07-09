@@ -20,6 +20,10 @@ class AlbumViewController: UICollectionViewController {
     public var pin: Pin!
     
     
+    // MARK: IBOutlets
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
+    
+    
     // MARK: Private variables and types
     fileprivate var space: CGFloat {
         // space = 1.0 for minimum width on iOS
@@ -52,8 +56,20 @@ class AlbumViewController: UICollectionViewController {
         return self.coreDataManager.privateChildManagedObjectContext()
     }()
     
-    fileprivate lazy var downloadPhotoOperations = [DownloadPhoto]()
-    
+    fileprivate var downloadPhotoOperations = [DownloadPhoto]() {
+        didSet {
+            if refreshButton.isEnabled == false && downloadPhotoOperations.count == 0 {
+                DispatchQueue.main.async {
+                    self.refreshButton.isEnabled = true
+                }
+            } else if refreshButton.isEnabled == true && downloadPhotoOperations.count > 0 {
+                DispatchQueue.main.async {
+                    self.refreshButton.isEnabled = false
+                }
+            }
+        }
+    }
+
     fileprivate lazy var processFetchedResultOps = [BlockOperation]()
     
     
@@ -66,8 +82,7 @@ class AlbumViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDataSource()
-        setupUI()
+        setup()
     }
     
     
@@ -105,6 +120,23 @@ class AlbumViewController: UICollectionViewController {
     }
 
 
+    @IBAction func refresh(_ sender: Any) {
+        downloadPhotoOperations.forEach {
+            $0.cancel()
+        }
+        
+        if let photos = pin.photos {
+            photos.forEach({
+                if let photo = $0 as? Photo {
+                    coreDataManager.mainManagedObjectContext.delete(photo)
+                }
+            })
+        }
+        
+        downloadMOC.reset()
+        getPhotoURLs()
+    }
+    
 }
 
 
@@ -113,10 +145,24 @@ class AlbumViewController: UICollectionViewController {
 //******************************************************************************
 fileprivate extension AlbumViewController {
     
-    func setupDataSource() {
+    private var shouldGetPhotoURLs: Bool {
+        var decision = true
+        if let photos = pin.photos {
+            decision = photos.count == 0
+        }
+        return decision
+    }
+    
+    
+    func setup() {
+        setupDataSource()
+        setupUI()
+    }
+    
+    private func setupDataSource() {
         do {
             try fetchedPhotosController.performFetch()
-            if pin.photos?.count == 0 {
+            if shouldGetPhotoURLs {
                 getPhotoURLs()
             }
             
@@ -126,7 +172,10 @@ fileprivate extension AlbumViewController {
     }
     
     
-    func setupUI() {
+    private func setupUI() {
+        if shouldGetPhotoURLs || downloadPhotoOperations.count > 0 {
+            refreshButton.isEnabled = false
+        }
         print("Num Photos: \(fetchedPhotosController.fetchedObjects?.count ?? 0)")
     }
     
@@ -194,6 +243,13 @@ extension AlbumViewController: NSFetchedResultsControllerDelegate {
             if let indexPath = indexPath, let collectionView = collectionView {
                 addFetchedResultsOp {
                     collectionView.reloadItems(at: [indexPath])
+                }
+            }
+            
+        case .delete:
+            if let indexPath = indexPath, let collectionView = collectionView {
+                addFetchedResultsOp {
+                    collectionView.deleteItems(at: [indexPath])
                 }
             }
             

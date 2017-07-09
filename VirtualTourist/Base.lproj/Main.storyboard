@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -94,9 +93,10 @@
                                             </subviews>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRC-QX-gfF" customClass="M13ProgressViewRing">
-                                            <rect key="frame" x="15" y="15" width="20" height="20"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="0km-Ve-oDw"/>
                                                 <constraint firstAttribute="width" secondItem="TRC-QX-gfF" secondAttribute="height" multiplier="1:1" id="6p8-LB-HtR"/>
                                             </constraints>
                                         </view>
@@ -108,7 +108,6 @@
                                     <constraint firstItem="uFP-zh-cdH" firstAttribute="centerX" secondItem="5dI-81-Zxe" secondAttribute="centerX" id="KoD-V8-lA9"/>
                                     <constraint firstItem="uFP-zh-cdH" firstAttribute="centerY" secondItem="5dI-81-Zxe" secondAttribute="centerY" id="Lxh-zG-cxb"/>
                                     <constraint firstItem="uFP-zh-cdH" firstAttribute="height" secondItem="5dI-81-Zxe" secondAttribute="height" id="RLo-gj-EW4"/>
-                                    <constraint firstItem="TRC-QX-gfF" firstAttribute="width" secondItem="uFP-zh-cdH" secondAttribute="width" multiplier="0.4" id="iQZ-W5-pqe"/>
                                     <constraint firstItem="TRC-QX-gfF" firstAttribute="centerX" secondItem="uFP-zh-cdH" secondAttribute="centerX" id="ncX-Wp-fjq"/>
                                     <constraint firstItem="uFP-zh-cdH" firstAttribute="width" secondItem="5dI-81-Zxe" secondAttribute="width" id="wI2-Qd-Ebe"/>
                                 </constraints>
@@ -146,6 +145,16 @@
                             <outlet property="delegate" destination="F89-pg-haz" id="X4t-8i-WYJ"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="5fQ-Kt-uLu">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="tJq-GH-ToV">
+                            <connections>
+                                <action selector="refresh:" destination="F89-pg-haz" id="b9o-x2-ND6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="refreshButton" destination="tJq-GH-ToV" id="UAu-T7-59P"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qf-6A-1ch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
