@@ -201,7 +201,16 @@ fileprivate extension AlbumViewController {
 fileprivate extension AlbumViewController {
     
     func getPhotoURLs() {
-        let _ = self.coreDataManager.getPhotoURLs(for: self.pin.objectID, withContext: self.downloadMOC, inQueue: self.downloadQueue)
+        if let getPhotoURLsOp = self.coreDataManager.getPhotoURLs(for: self.pin.objectID, withContext: self.downloadMOC, inQueue: self.downloadQueue) {
+            getPhotoURLsOp.completionBlock = {
+                DispatchQueue.main.async { [weak self] in
+                    guard let s = self else { return }
+                    if let photos = s.pin.photos, photos.count == 0 {
+                        s.navigationItem.prompt = "0 photos found"
+                    }
+                }
+            }
+        }
     }
     
     
