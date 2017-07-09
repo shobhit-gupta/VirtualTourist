@@ -184,7 +184,6 @@ fileprivate extension RootViewController {
         // Save on disk
         saveOnDiskTimer?.setEventHandler(handler: { [weak self] in
             guard let s = self else { return }
-            s.printOnMain("---> Timer called @ \(Date()) ")
             s.coreDataManager?.save()
             if s.shouldStopSavingOnDisk {
                 s.stopPeriodicallySavingOnDisk()
@@ -193,7 +192,6 @@ fileprivate extension RootViewController {
         
         // Start the periodical timer
         saveOnDiskTimer?.resume()
-        printOnMain("===> Timer initiated")
         
     }
     
@@ -202,7 +200,6 @@ fileprivate extension RootViewController {
         saveOnDiskTimer?.cancel()
         saveOnDiskTimer = nil
         shouldStopSavingOnDisk = false
-        printOnMain("===> Timer Stopped")
     }
     
     

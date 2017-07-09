@@ -39,6 +39,10 @@ class AlbumViewController: UICollectionViewController {
         return Default.GridView.NumCellsOnSmallestSide
     }
     
+    fileprivate lazy var numberOfCellsInRow: Int = self._numberOfCellsInRow(for: self.collectionView!)
+    fileprivate lazy var cellDimension: CGFloat = self._cellDimension(for: self.collectionView!)
+    
+    
     fileprivate lazy var fetchedPhotosController: NSFetchedResultsController<Photo> = {
         let photoFetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
         photoFetchRequest.sortDescriptors = [NSSortDescriptor(key: "url", ascending: true)]
@@ -88,6 +92,14 @@ class AlbumViewController: UICollectionViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView?.collectionViewLayout.invalidateLayout()
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        if let collectionView = collectionView {
+            numberOfCellsInRow = _numberOfCellsInRow(for: collectionView)
+            cellDimension = _cellDimension(for: collectionView)
+        }
     }
     
     
@@ -189,17 +201,32 @@ fileprivate extension AlbumViewController {
 fileprivate extension AlbumViewController {
     
     func getPhotoURLs() {
-        let _ = coreDataManager.getPhotoURLs(for: pin.objectID, withContext: downloadMOC, inQueue: downloadQueue)
-        
+        let _ = self.coreDataManager.getPhotoURLs(for: self.pin.objectID, withContext: self.downloadMOC, inQueue: self.downloadQueue)
     }
     
     
     func download(photo: Photo) {
-        if let downloadPhotoOp = coreDataManager.downloadPhoto(id: photo.objectID, withContext: downloadMOC, inQueue: downloadQueue, progressHandler: { (fraction) in
-            
-        }) {
-            downloadPhotoOperations.append(downloadPhotoOp)
+        guard photo.downloadQueued == false else {
+            return
         }
+        
+        if let downloadPhotoOp = self.coreDataManager.downloadPhoto(id: photo.objectID, withContext: self.downloadMOC, inQueue: self.downloadQueue) {
+            // Mark that photo is queued for download
+            photo.downloadQueued = true
+            
+            // Ensure that the operation will be removed after it is completed
+            // from the stored array.
+            downloadPhotoOp.completionBlock = {
+                if let idx = self.downloadPhotoOperations.index(of: downloadPhotoOp) {
+                    self.downloadPhotoOperations.remove(at: idx)
+                }
+            }
+            
+            // Add operation to stored array so that we can change it's priority
+            // later depending upon the user's actions.
+            self.downloadPhotoOperations.append(downloadPhotoOp)
+        }
+        
     }
     
 }
@@ -220,7 +247,6 @@ extension AlbumViewController: NSFetchedResultsControllerDelegate {
             self.processFetchedResultOps.forEach({ $0.start() })
         }, completion: { (finished) in
             self.processFetchedResultOps.removeAll(keepingCapacity: false)
-            self.coreDataManager.save()
         })
     }
     
@@ -301,8 +327,9 @@ extension AlbumViewController {
         } else if photo.downloadInitiated {
             cell.progress = photo.downloadedFraction
         
-        } else {
-            // Lazily download photos
+        } else if !photo.downloadQueued {
+            // Lazily download photos. Also, make sure that the download is not 
+            // already queued.
             cell.progress = nil
             download(photo: photo)
         }
@@ -316,16 +343,16 @@ extension AlbumViewController {
 //******************************************************************************
 extension AlbumViewController: UICollectionViewDelegateFlowLayout {
     
-    private func numberOfCellsInRow(for collectionView: UICollectionView) -> Int {
+    fileprivate func _numberOfCellsInRow(for collectionView: UICollectionView) -> Int {
         let width = collectionView.frame.width
         let height = collectionView.frame.height
         return width < height ? numCellsOnSmallerSide : Int(CGFloat(numCellsOnSmallerSide) * width / height)
     }
     
     
-    private func cellDimension(for collectionView: UICollectionView) -> CGFloat {
+    fileprivate func _cellDimension(for collectionView: UICollectionView) -> CGFloat {
         let width = collectionView.frame.width
-        let numCells = CGFloat(numberOfCellsInRow(for: collectionView))
+        let numCells = CGFloat(numberOfCellsInRow)
         let emptySpace = (numCells + 1) * space
         return (width - emptySpace) / numCells
     }
@@ -339,15 +366,13 @@ extension AlbumViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let dimension = cellDimension(for: collectionView)
+        let dimension = cellDimension
         var width = dimension
         var height = dimension
         
-        if numCellsOnSmallerSide > Default.GridView.NumCellsOnSmallestSide,
-            let imageData = fetchedPhotosController.object(at: indexPath).image,
-            let image = UIImage(data: imageData as Data) {
+        if numCellsOnSmallerSide > Default.GridView.NumCellsOnSmallestSide {
             
-            let aspectRatio = (image.size.width) / (image.size.height)
+            let aspectRatio = CGFloat(fetchedPhotosController.object(at: indexPath).aspectRatio)
             if aspectRatio > Default.GridViewCell.AspectRatio.TooWide {
                 height /= Default.GridViewCell.AspectRatio.TooWide
                 
@@ -355,7 +380,7 @@ extension AlbumViewController: UICollectionViewDelegateFlowLayout {
                 height /= aspectRatio
                 
             } else if aspectRatio < Default.GridViewCell.AspectRatio.TooNarrow {
-                width *= 0.5
+                width *= Default.GridViewCell.AspectRatio.TooNarrow
                 
             } else {
                 width *= aspectRatio

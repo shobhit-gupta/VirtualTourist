@@ -22,7 +22,7 @@ public extension CoreDataManager {
     }
     
     
-    internal func downloadPhoto(id photoId: NSManagedObjectID, withContext context: NSManagedObjectContext, inQueue queue: OperationQueue, progressHandler: @escaping (Double) -> Void) -> DownloadPhoto? {
+    internal func downloadPhoto(id photoId: NSManagedObjectID, withContext context: NSManagedObjectContext, inQueue queue: OperationQueue) -> DownloadPhoto? {
         guard let downloadPhotoOp = DownloadPhoto(withId: photoId, in: context) else {
             return nil
         }

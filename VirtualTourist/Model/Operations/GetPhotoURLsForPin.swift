@@ -39,24 +39,17 @@ class GetPhotoURLsForPin: AsynchronousOperation {
             }
             
             // Construct photos with returned urls. Though download them later on according to need.
-            let urlList = Flickr.getPhotoURLs(from: json)
-            urlList.forEach {
-                let photo = Photo(url: $0, pin: self.pin, insertInto: self.managedObjectContext)
+            let photosInfo = Flickr.getPhotosInfo(from: json)
+            
+            photosInfo.forEach {
+                let photo = Photo(url: $0.url, pin: self.pin, insertInto: self.managedObjectContext)
+                if let width = $0.width, let height = $0.height {
+                    photo.aspectRatio = width / height
+                }
                 self.pin.addToPhotos(photo)
             }
             
             self.printOnMain("Photo URLs \(self.pin.photos?.count ?? 0) fetch completed for pin: \(self.pin.objectID)")
-            
-            let photofetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
-            let pinFetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-            
-            do {
-                let numPhotos = try self.managedObjectContext.count(for: photofetchRequest)
-                let numPins = try self.managedObjectContext.count(for: pinFetchRequest)
-                self.printOnMain("Num photos: \(numPhotos) Num pins: \(numPins)")
-            } catch {
-                
-            }
             
             defer {
                 // Save private child context. Changes will be pushed to the main context.
@@ -71,24 +64,6 @@ class GetPhotoURLsForPin: AsynchronousOperation {
         }
         
     }
-    
-    
-//    func downloadPhotos() {
-//        if let photos = pin.photos {
-//            photos.forEach({ (photo) in
-//                guard let photo = photo as? Photo else {
-//                    self.printOnMain("Here is the issue")
-//                    return
-//                }
-//                if let downloadPhotoOp = DownloadPhoto(withId: photo.objectID, in: managedObjectContext, progressHandler: { (fraction) in
-//                    //self.printOnMain("Download Progress: \(fraction * 100)% of \(photo.objectID)")
-//                }) {
-//                    self.printOnMain("Add downloadPhotoOp for photo: \(photo.objectID)")
-//                    downloadQueue.addOperation(downloadPhotoOp)
-//                }
-//            })
-//        }
-//    }
     
     
     func printOnMain(_ str: String) {

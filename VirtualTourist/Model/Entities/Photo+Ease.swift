@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 
 public extension Photo {
@@ -19,7 +20,21 @@ public extension Photo {
         self.init(entity: entityDescription, insertInto: context)
         self.url = url.absoluteString
         self.pin = pin
+    }
+    
+    
+    func verifyAspectRatio() {
+        guard let data = image, let img = UIImage(data: data as Data), img.size.height > 0 else {
+            return
+        }
         
+        let newAspectRatio = Float(img.size.width / img.size.height)
+        if aspectRatio != newAspectRatio {
+            aspectRatio = newAspectRatio
+            DispatchQueue.main.async {
+                print("Aspect Ratio changed at runtime")
+            }
+        }
     }
 
 }

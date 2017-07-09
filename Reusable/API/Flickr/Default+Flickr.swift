@@ -51,6 +51,7 @@ public extension Default {
         enum Response {
             
             enum Key {
+                static let Height = "height_m"
                 static let MediumURL = "url_m"
                 static let Message = "message"
                 static let Pages = "pages"
@@ -59,6 +60,7 @@ public extension Default {
                 static let Photos = "photos"
                 static let Status = "stat"
                 static let Title = "title"
+                static let Width = "width_m"
             }
             
             enum Value {

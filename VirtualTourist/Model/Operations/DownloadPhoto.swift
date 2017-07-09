@@ -35,10 +35,6 @@ class DownloadPhoto: AsynchronousOperation {
             print("Photo url not found")
             return
         }
-        DispatchQueue.main.async {
-            print("URL for \(self.photo.objectID) is \(url)")
-        }
-        photo.downloadInitiated = true
         downloadPhoto(from: url)
     }
     
@@ -48,6 +44,11 @@ class DownloadPhoto: AsynchronousOperation {
 fileprivate extension DownloadPhoto {
 
     func downloadPhoto(from url: URL) {
+        guard !self.isCancelled else {
+            self.finish()
+            return
+        }
+        
         guard numberOfTries < 4 else {
             print("Max retries reached")
             finish()
@@ -58,6 +59,18 @@ fileprivate extension DownloadPhoto {
         
         Alamofire.request(url)
             .downloadProgress(queue: .main) { (progress) in
+                guard !self.isCancelled else {
+                    self.finish()
+                    return
+                }
+                
+                if self.photo.downloadInitiated == false {
+                    self.photo.downloadInitiated = true
+                    self.managedObjectContext.performAndWait {
+                        self.managedObjectContext.saveChanges()
+                    }
+                }
+                
                 let fractionDone = Float(progress.fractionCompleted)
                 if fractionDone - self.photo.downloadedFraction > 0.1 {
                     self.photo.downloadedFraction = fractionDone
@@ -68,6 +81,11 @@ fileprivate extension DownloadPhoto {
                 
             }
             .responseData { (response) in
+                guard !self.isCancelled else {
+                    self.finish()
+                    return
+                }
+
                 switch response.result {
                 
                 case .failure(let error):
@@ -77,11 +95,9 @@ fileprivate extension DownloadPhoto {
                 case .success(let value):
                     // Store the downloaded image.
                     self.photo.image = value as NSData
-                    
-                    //self.photo.downloadedFraction = nil
+                    self.photo.verifyAspectRatio()
                     
                     // Save private child context. Changes will be pushed to the main context.
-                    try? self.managedObjectContext.save()
                     self.managedObjectContext.performAndWait {
                         self.managedObjectContext.saveChanges()
                     }
