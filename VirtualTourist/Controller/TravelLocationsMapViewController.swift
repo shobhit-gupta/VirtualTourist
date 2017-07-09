@@ -34,6 +34,7 @@ class TravelLocationsMapViewController: UIViewController {
         return fetchedResultsController
     }()
     
+    fileprivate var droppedPin: Pin?
     
     // MARK: Standard callbacks
     override func viewDidLoad() {
@@ -109,6 +110,7 @@ fileprivate extension TravelLocationsMapViewController {
     // Add a longPressGesture to mapView
     private func addLongPressGesture() {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(mapViewLongPressed(sender:)))
+        longPress.numberOfTapsRequired = 1
         mapView.addGestureRecognizer(longPress)
     }
     
@@ -124,11 +126,13 @@ fileprivate extension TravelLocationsMapViewController {
     @objc func mapViewLongPressed(sender: UILongPressGestureRecognizer) {
         
         switch sender.state {
-        case .ended:
-            // Get coordinate of the point pressed
-            let touchPoint = sender.location(in: mapView)
-            let location = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-            addPin(for: location)
+        case .began:
+            droppedPin = addPin(for: mapViewLocation(for: sender), in: coreDataManager.mainManagedObjectContext)
+            
+        case .changed, .ended:
+            if let pin = droppedPin {
+                pin.location = mapViewLocation(for: sender)
+            }
             
         default:
             break
@@ -136,8 +140,13 @@ fileprivate extension TravelLocationsMapViewController {
     }
     
     
-    private func addPin(for location: CLLocationCoordinate2D) {
-        let _ = Pin(location: location, insertInto: coreDataManager.mainManagedObjectContext)
+    private func mapViewLocation(for gestureRecognizer: UILongPressGestureRecognizer) -> CLLocationCoordinate2D {
+        let touchPoint = gestureRecognizer.location(in: mapView)
+        return mapView.convert(touchPoint, toCoordinateFrom: mapView)
+    }
+    
+    private func addPin(for location: CLLocationCoordinate2D, in context: NSManagedObjectContext) -> Pin {
+        return Pin(location: location, insertInto: context)
     }
     
     
@@ -161,6 +170,19 @@ extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {
             }
             let pinAnnotation = pin.createAnnotation()
             mapView.addAnnotation(pinAnnotation)
+            
+        case .update:
+            guard let pin = anObject as? Pin else {
+                return
+            }
+            
+            for annotation in mapView.annotations {
+                if let pinAnnotation = annotation as? PinAnnotation,
+                   pinAnnotation.pinId == pin.objectID {
+                        pinAnnotation.coordinate = pin.location
+                        break
+                }
+            }
             
         default:
             break

@@ -15,7 +15,15 @@ import MapKit
 public extension Pin {
     
     public var location: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        get {
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        }
+        set {
+            willChangeValue(forKey: "location")
+            latitude = newValue.latitude
+            longitude = newValue.longitude
+            didChangeValue(forKey: "location")
+        }
     }
     
 
