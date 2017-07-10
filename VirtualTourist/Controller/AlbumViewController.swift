@@ -276,23 +276,26 @@ extension AlbumViewController: NSFetchedResultsControllerDelegate {
         
         switch type {
         case .insert:
-            if let newIndexPath = newIndexPath, let collectionView = collectionView {
-                addFetchedResultsOp {
-                    collectionView.insertItems(at: [newIndexPath])
+            if let newIndexPath = newIndexPath {
+                addFetchedResultsOp { [weak self] in
+                    guard let s = self else { return }
+                    s.collectionView?.insertItems(at: [newIndexPath])
                 }
             }
             
         case .update:
-            if let indexPath = indexPath, let collectionView = collectionView {
-                addFetchedResultsOp {
-                    collectionView.reloadItems(at: [indexPath])
+            if let indexPath = indexPath {
+                addFetchedResultsOp { [weak self] in
+                    guard let s = self else { return }
+                    s.collectionView?.reloadItems(at: [indexPath])
                 }
             }
             
         case .delete:
-            if let indexPath = indexPath, let collectionView = collectionView {
-                addFetchedResultsOp {
-                    collectionView.deleteItems(at: [indexPath])
+            if let indexPath = indexPath {
+                addFetchedResultsOp { [weak self] in
+                    guard let s = self else { return }
+                    s.collectionView?.deleteItems(at: [indexPath])
                 }
             }
             
