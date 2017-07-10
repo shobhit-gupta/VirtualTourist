@@ -166,7 +166,11 @@ fileprivate extension TravelLocationsMapViewController {
 extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        coreDataManager?.save()
+        // Bug Fixed: "attempt to recursively call -save: on the context aborted"
+        // Fix: https://stackoverflow.com/a/39574995
+        DispatchQueue.main.async {
+            self.coreDataManager?.save()
+        }
     }
     
 
