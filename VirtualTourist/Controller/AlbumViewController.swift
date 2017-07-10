@@ -252,11 +252,18 @@ extension AlbumViewController: NSFetchedResultsControllerDelegate {
     
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        collectionView?.performBatchUpdates({ 
+        
+        collectionView?.performBatchUpdates({
+        
             self.processFetchedResultOps.forEach({ $0.start() })
+        
         }, completion: { (finished) in
+        
             self.processFetchedResultOps.removeAll(keepingCapacity: false)
-            self.coreDataManager?.save()
+            DispatchQueue.main.async {
+                self.coreDataManager?.save()
+            }
+        
         })
     }
     
