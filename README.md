@@ -2,7 +2,7 @@
 
 Users specify travel locations around the world, and create virtual photo albums for each location. 
 - Pictures are downloaded from Flickr.
-- The locations and photo albums are stored using [Multithreaded Core Data](Reusable/CoreData/Stack/CoreDataManager.swift).
+- The locations and photo albums are stored using [Multithreaded Core Data Stack](Reusable/CoreData/Stack/CoreDataManager.swift).
 - Uses [Carthage](https://github.com/Carthage/Carthage) in place of CocoaPods as the package manager.
 - Uses Alamofire & SwiftyJSON.
 - Demos the use of asynchronous Operation (previously NSOperation) & Dispatch Queues.
